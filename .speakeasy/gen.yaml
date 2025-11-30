@@ -1,0 +1,123 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: CloudinaryEnvConfig
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+    hoistGlobalSecurity: true
+  inferSSEOverload: true
+  sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
+  tests:
+    generateTests: false
+    generateNewTests: true
+    skipResponseBodyAssertions: false
+mcp-typescript:
+  version: 0.5.0
+  additionalDependencies:
+    dependencies: {}
+    devDependencies: {}
+    peerDependencies: {}
+  additionalPackageJSON: {}
+  author: Cloudinary
+  authors:
+    - Cloudinary
+    - Speakeasy
+  baseErrorName: CloudinaryEnvConfigError
+  clientServerStatusCodesAsErrors: true
+  cloudflareEnabled: false
+  constFieldsAlwaysOptional: true
+  defaultErrorName: CloudinaryEnvConfigDefaultError
+  enableCustomCodeRegions: false
+  enableMCPServer: true
+  enableReactQuery: false
+  enumFormat: union
+  envVarPrefix: CLOUDINARY
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  formStringArrayEncodeMode: encoded-string
+  generateExamples: false
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inferUnionDiscriminators: false
+  inputModelSuffix: input
+  jsonpath: legacy
+  maxMethodParams: 100
+  mcpbManifestOverlay:
+    author:
+      name: Cloudinary
+      url: https://cloudinary.com
+    description: Cloudinary Environment Configuration MCP Server
+    display_name: Cloudinary Environment Config
+    documentation: https://cloudinary.com/documentation/cloudinary_llm_mcp
+    homepage: https://github.com/cloudinary/environment-config-mcp
+    icon: icon.png
+    keywords:
+      - cloudinary
+      - environment-config
+      - transformations
+      - upload-presets
+      - streaming-profiles
+      - webhooks
+      - triggers
+      - upload-mappings
+    license: MIT
+    long_description: MCP server for managing Cloudinary environment configuration including transformations, upload presets, streaming profiles, triggers, and upload mappings.
+    privacy_policies:
+      - https://cloudinary.com/privacy
+    repository:
+      type: git
+      url: https://github.com/cloudinary/environment-config-mcp.git
+    user_config:
+      api_key:
+        description: Your Cloudinary API key. Found in Dashboard → Settings → Access Keys.
+        required: true
+        title: API Key
+        type: string
+      api_secret:
+        description: Your Cloudinary API secret. Found in Dashboard → Settings → Access Keys.
+        required: true
+        sensitive: true
+        title: API Secret
+        type: string
+      cloud_name:
+        description: Your Cloudinary cloud name (required). Find it in your Cloudinary Dashboard.
+        required: true
+        title: Cloud Name
+        type: string
+      region:
+        default: api
+        description: 'Regional endpoint for optimal performance. Options: api (US), api-eu (Europe), api-ap (Asia-Pacific).'
+        required: false
+        title: Region
+        type: string
+  methodArguments: require-security-and-request
+  moduleFormat: dual
+  multipartArrayFormat: legacy
+  outputModelSuffix: output
+  packageName: '@cloudinary/environment-config-mcp'
+  responseFormat: flat
+  sseFlatResponse: true
+  templateVersion: v2
+  usageSDKInitImports: []
+  useIndexModules: true

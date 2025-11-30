@@ -1,0 +1,37 @@
+speakeasyVersion: 1.665.0
+sources:
+    CloudinaryEnvConfig-MCP-OAS:
+        sourceNamespace: cloudinary-env-config-mcp-oas
+        sourceRevisionDigest: sha256:ea390d84f6237c95bffd9b4afcf0f6a1587913f1dca778dde9258405d3c450fa
+        sourceBlobDigest: sha256:aacd865d35c2746bc06943e2d2d5d73844feb10d61d35369c7e31d512b822a88
+        tags:
+            - latest
+            - 0.3.6
+targets:
+    cloudinary-env-config-mcp:
+        source: CloudinaryEnvConfig-MCP-OAS
+        sourceNamespace: cloudinary-env-config-mcp-oas
+        sourceRevisionDigest: sha256:ea390d84f6237c95bffd9b4afcf0f6a1587913f1dca778dde9258405d3c450fa
+        sourceBlobDigest: sha256:aacd865d35c2746bc06943e2d2d5d73844feb10d61d35369c7e31d512b822a88
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        CloudinaryEnvConfig-MCP-OAS:
+            inputs:
+                - location: https://cloudinary.github.io/api-schemas/environment-config/schema.yml
+            overlays:
+                - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
+                - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
+            registry:
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-env-config-mcp-oas
+    targets:
+        cloudinary-env-config-mcp:
+            target: mcp-typescript
+            source: CloudinaryEnvConfig-MCP-OAS
+            publish:
+                npm:
+                    token: $npm_token
