@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type DeleteUploadPresetGlobals = { cloud_name?: string | undefined };
 
 export const DeleteUploadPresetGlobals$zodSchema: z.ZodType<
-  DeleteUploadPresetGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadPresetGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -19,9 +17,7 @@ export const DeleteUploadPresetGlobals$zodSchema: z.ZodType<
 export type DeleteUploadPresetRequest = { name: string };
 
 export const DeleteUploadPresetRequest$zodSchema: z.ZodType<
-  DeleteUploadPresetRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadPresetRequest
 > = z.object({
   name: z.string(),
 });
@@ -35,9 +31,7 @@ export type DeleteUploadPresetResponseBody = {
 };
 
 export const DeleteUploadPresetResponseBody$zodSchema: z.ZodType<
-  DeleteUploadPresetResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadPresetResponseBody
 > = z.object({
   external_id: z.string(),
   message: z.string(),
@@ -48,9 +42,7 @@ export type DeleteUploadPresetResponse =
   | ApiError;
 
 export const DeleteUploadPresetResponse$zodSchema: z.ZodType<
-  DeleteUploadPresetResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadPresetResponse
 > = z.union([
   z.lazy(() => DeleteUploadPresetResponseBody$zodSchema),
   ApiError$zodSchema,

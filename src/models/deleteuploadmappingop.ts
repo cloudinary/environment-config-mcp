@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type DeleteUploadMappingGlobals = { cloud_name?: string | undefined };
 
 export const DeleteUploadMappingGlobals$zodSchema: z.ZodType<
-  DeleteUploadMappingGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadMappingGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -19,9 +17,7 @@ export const DeleteUploadMappingGlobals$zodSchema: z.ZodType<
 export type DeleteUploadMappingRequest = { folder: string };
 
 export const DeleteUploadMappingRequest$zodSchema: z.ZodType<
-  DeleteUploadMappingRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadMappingRequest
 > = z.object({
   folder: z.string().describe("The folder name of the mapping to delete"),
 });
@@ -35,9 +31,7 @@ export type DeleteUploadMappingResponseBody = {
 };
 
 export const DeleteUploadMappingResponseBody$zodSchema: z.ZodType<
-  DeleteUploadMappingResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadMappingResponseBody
 > = z.object({
   external_id: z.string(),
   message: z.string(),
@@ -48,9 +42,7 @@ export type DeleteUploadMappingResponse =
   | ApiError;
 
 export const DeleteUploadMappingResponse$zodSchema: z.ZodType<
-  DeleteUploadMappingResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteUploadMappingResponse
 > = z.union([
   z.lazy(() => DeleteUploadMappingResponseBody$zodSchema),
   ApiError$zodSchema,

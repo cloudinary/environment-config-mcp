@@ -11,9 +11,7 @@ export type StreamingProfileCreate = {
 };
 
 export const StreamingProfileCreate$zodSchema: z.ZodType<
-  StreamingProfileCreate,
-  z.ZodTypeDef,
-  unknown
+  StreamingProfileCreate
 > = z.object({
   display_name: z.string().nullable().optional(),
   name: z.string(),

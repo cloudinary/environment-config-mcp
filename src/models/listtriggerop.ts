@@ -8,26 +8,21 @@ import { TriggerInfo, TriggerInfo$zodSchema } from "./triggerinfo.js";
 
 export type ListTriggerGlobals = { cloud_name?: string | undefined };
 
-export const ListTriggerGlobals$zodSchema: z.ZodType<
-  ListTriggerGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const ListTriggerGlobals$zodSchema: z.ZodType<ListTriggerGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type ListTriggerRequest = { event_type?: string | undefined };
 
-export const ListTriggerRequest$zodSchema: z.ZodType<
-  ListTriggerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  event_type: z.string().describe(
-    "The type of event that will trigger the notification response.",
-  ).optional(),
-});
+export const ListTriggerRequest$zodSchema: z.ZodType<ListTriggerRequest> = z
+  .object({
+    event_type: z.string().describe(
+      "The type of event that will trigger the notification response.",
+    ).optional(),
+  });
 
 /**
  * List response
@@ -38,21 +33,16 @@ export type ListTriggerResponseBody = {
 };
 
 export const ListTriggerResponseBody$zodSchema: z.ZodType<
-  ListTriggerResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListTriggerResponseBody
 > = z.object({
-  total: z.number().int(),
+  total: z.int(),
   triggers: z.array(TriggerInfo$zodSchema),
 }).describe("List response");
 
 export type ListTriggerResponse = ListTriggerResponseBody | ApiError;
 
-export const ListTriggerResponse$zodSchema: z.ZodType<
-  ListTriggerResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => ListTriggerResponseBody$zodSchema),
-  ApiError$zodSchema,
-]);
+export const ListTriggerResponse$zodSchema: z.ZodType<ListTriggerResponse> = z
+  .union([
+    z.lazy(() => ListTriggerResponseBody$zodSchema),
+    ApiError$zodSchema,
+  ]);

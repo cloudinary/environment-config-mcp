@@ -9,9 +9,7 @@ import { UploadPreset, UploadPreset$zodSchema } from "./uploadpreset.js";
 export type UpdateUploadPresetGlobals = { cloud_name?: string | undefined };
 
 export const UpdateUploadPresetGlobals$zodSchema: z.ZodType<
-  UpdateUploadPresetGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadPresetGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,9 +21,7 @@ export type UpdateUploadPresetRequest = {
 };
 
 export const UpdateUploadPresetRequest$zodSchema: z.ZodType<
-  UpdateUploadPresetRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadPresetRequest
 > = z.object({
   name: z.string(),
   upload_preset: UploadPreset$zodSchema,
@@ -40,9 +36,7 @@ export type UpdateUploadPresetResponseBody = {
 };
 
 export const UpdateUploadPresetResponseBody$zodSchema: z.ZodType<
-  UpdateUploadPresetResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadPresetResponseBody
 > = z.object({
   external_id: z.string(),
   message: z.string(),
@@ -53,9 +47,7 @@ export type UpdateUploadPresetResponse =
   | ApiError;
 
 export const UpdateUploadPresetResponse$zodSchema: z.ZodType<
-  UpdateUploadPresetResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadPresetResponse
 > = z.union([
   z.lazy(() => UpdateUploadPresetResponseBody$zodSchema),
   ApiError$zodSchema,

@@ -3,10 +3,15 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const UriType = {
+  Webhook: "webhook",
+  Flow: "flow",
+} as const;
+export type UriType = ClosedEnum<typeof UriType>;
 
 export const UriType$zodSchema = z.enum([
   "webhook",
   "flow",
 ]);
-
-export type UriType = z.infer<typeof UriType$zodSchema>;

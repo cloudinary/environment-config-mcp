@@ -28,7 +28,7 @@ Updates the URL template for an existing folder mapping`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await uploadMappingsUpdateUploadMapping(
+    const [result] = await uploadMappingsUpdateUploadMapping(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -41,8 +41,6 @@ Updates the URL template for an existing folder mapping`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

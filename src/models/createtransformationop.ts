@@ -9,9 +9,7 @@ import { CreateRequest, CreateRequest$zodSchema } from "./createrequest.js";
 export type CreateTransformationGlobals = { cloud_name?: string | undefined };
 
 export const CreateTransformationGlobals$zodSchema: z.ZodType<
-  CreateTransformationGlobals,
-  z.ZodTypeDef,
-  unknown
+  CreateTransformationGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,14 +21,11 @@ export type CreateTransformationRequest = {
 };
 
 export const CreateTransformationRequest$zodSchema: z.ZodType<
-  CreateTransformationRequest,
-  z.ZodTypeDef,
-  unknown
+  CreateTransformationRequest
 > = z.object({
   create_request: CreateRequest$zodSchema,
   transformation: z.string().describe(
-    "The valid transformation name to create.\n"
-      + "",
+    "The valid transformation name to create.\n",
   ),
 });
 
@@ -40,9 +35,7 @@ export const CreateTransformationRequest$zodSchema: z.ZodType<
 export type CreateTransformationResponseBody = { message?: string | undefined };
 
 export const CreateTransformationResponseBody$zodSchema: z.ZodType<
-  CreateTransformationResponseBody,
-  z.ZodTypeDef,
-  unknown
+  CreateTransformationResponseBody
 > = z.object({
   message: z.string().optional(),
 }).describe("Transformation created");
@@ -52,9 +45,7 @@ export type CreateTransformationResponse =
   | CreateTransformationResponseBody;
 
 export const CreateTransformationResponse$zodSchema: z.ZodType<
-  CreateTransformationResponse,
-  z.ZodTypeDef,
-  unknown
+  CreateTransformationResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => CreateTransformationResponseBody$zodSchema),

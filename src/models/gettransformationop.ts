@@ -12,9 +12,7 @@ import {
 export type GetTransformationGlobals = { cloud_name?: string | undefined };
 
 export const GetTransformationGlobals$zodSchema: z.ZodType<
-  GetTransformationGlobals,
-  z.ZodTypeDef,
-  unknown
+  GetTransformationGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,22 +21,17 @@ export const GetTransformationGlobals$zodSchema: z.ZodType<
 export type GetTransformationRequest = { transformation: string };
 
 export const GetTransformationRequest$zodSchema: z.ZodType<
-  GetTransformationRequest,
-  z.ZodTypeDef,
-  unknown
+  GetTransformationRequest
 > = z.object({
   transformation: z.string().describe(
-    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n"
-      + "",
+    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
 });
 
 export type GetTransformationResponse = ApiError | TransformationInfo;
 
 export const GetTransformationResponse$zodSchema: z.ZodType<
-  GetTransformationResponse,
-  z.ZodTypeDef,
-  unknown
+  GetTransformationResponse
 > = z.union([
   ApiError$zodSchema,
   TransformationInfo$zodSchema,

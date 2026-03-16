@@ -9,11 +9,7 @@ export type UpdateRequest = {
   allowed_for_strict?: boolean | undefined;
 };
 
-export const UpdateRequest$zodSchema: z.ZodType<
-  UpdateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UpdateRequest$zodSchema: z.ZodType<UpdateRequest> = z.object({
   allowed_for_strict: z.boolean().optional(),
   unsafe_update: z.string().optional(),
 });

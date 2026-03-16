@@ -13,11 +13,7 @@ export type ListResponse = {
   next_cursor?: string | null | undefined;
 };
 
-export const ListResponse$zodSchema: z.ZodType<
-  ListResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const ListResponse$zodSchema: z.ZodType<ListResponse> = z.object({
   next_cursor: z.string().nullable().optional(),
   transformations: z.array(TransformationSummary$zodSchema).optional(),
 });

@@ -7,21 +7,17 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type UpdateTriggerGlobals = { cloud_name?: string | undefined };
 
-export const UpdateTriggerGlobals$zodSchema: z.ZodType<
-  UpdateTriggerGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const UpdateTriggerGlobals$zodSchema: z.ZodType<UpdateTriggerGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type UpdateTriggerRequestBody = { new_uri: string };
 
 export const UpdateTriggerRequestBody$zodSchema: z.ZodType<
-  UpdateTriggerRequestBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateTriggerRequestBody
 > = z.object({
   new_uri: z.string(),
 });
@@ -31,14 +27,11 @@ export type UpdateTriggerRequest = {
   RequestBody: UpdateTriggerRequestBody;
 };
 
-export const UpdateTriggerRequest$zodSchema: z.ZodType<
-  UpdateTriggerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  RequestBody: z.lazy(() => UpdateTriggerRequestBody$zodSchema),
-  id: z.string(),
-});
+export const UpdateTriggerRequest$zodSchema: z.ZodType<UpdateTriggerRequest> = z
+  .object({
+    RequestBody: z.lazy(() => UpdateTriggerRequestBody$zodSchema),
+    id: z.string(),
+  });
 
 /**
  * Trigger updated successfully
@@ -46,20 +39,15 @@ export const UpdateTriggerRequest$zodSchema: z.ZodType<
 export type UpdateTriggerResponseBody = { message: string };
 
 export const UpdateTriggerResponseBody$zodSchema: z.ZodType<
-  UpdateTriggerResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateTriggerResponseBody
 > = z.object({
   message: z.string(),
 }).describe("Trigger updated successfully");
 
 export type UpdateTriggerResponse = UpdateTriggerResponseBody | ApiError;
 
-export const UpdateTriggerResponse$zodSchema: z.ZodType<
-  UpdateTriggerResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => UpdateTriggerResponseBody$zodSchema),
-  ApiError$zodSchema,
-]);
+export const UpdateTriggerResponse$zodSchema: z.ZodType<UpdateTriggerResponse> =
+  z.union([
+    z.lazy(() => UpdateTriggerResponseBody$zodSchema),
+    ApiError$zodSchema,
+  ]);

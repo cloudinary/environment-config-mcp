@@ -8,8 +8,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   transformation: z.string().describe(
-    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n"
-      + "",
+    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
   invalidate: z.boolean().describe(
     "Invalidate derived resources generated using the deleted transformation from CDN.",
@@ -34,7 +33,7 @@ Delete a named or unnamed transformation. Optionally invalidate derived resource
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await transformationsDeleteTransformation(
+    const [result] = await transformationsDeleteTransformation(
       client,
       args.transformation,
       args.invalidate,
@@ -48,8 +47,6 @@ Delete a named or unnamed transformation. Optionally invalidate derived resource
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

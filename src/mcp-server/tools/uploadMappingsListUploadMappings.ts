@@ -13,7 +13,7 @@ const args = {
   next_cursor: z.string().describe(
     "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
   ).optional(),
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),
 };
@@ -38,7 +38,7 @@ Upload mappings allow you to map an upload preset to a specific folder and URL t
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await uploadMappingsListUploadMappings(
+    const [result] = await uploadMappingsListUploadMappings(
       client,
       args.folder,
       args.next_cursor,
@@ -53,8 +53,6 @@ Upload mappings allow you to map an upload preset to a specific folder and URL t
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

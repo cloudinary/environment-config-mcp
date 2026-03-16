@@ -1,18 +1,18 @@
-speakeasyVersion: 1.665.0
+speakeasyVersion: 1.755.1
 sources:
     CloudinaryEnvConfig-MCP-OAS:
         sourceNamespace: cloudinary-env-config-mcp-oas
-        sourceRevisionDigest: sha256:ea390d84f6237c95bffd9b4afcf0f6a1587913f1dca778dde9258405d3c450fa
-        sourceBlobDigest: sha256:aacd865d35c2746bc06943e2d2d5d73844feb10d61d35369c7e31d512b822a88
+        sourceRevisionDigest: sha256:db829e6bf09523789e58c6b1d38767772afc1a0e3612e7d1e30a86f3983ee4b4
+        sourceBlobDigest: sha256:2b79ac215d5147f5d4c321e98e6f8f4f41527d81bfe5aa9c2af0d85e30efec14
         tags:
             - latest
-            - 0.3.6
+            - 0.4.0
 targets:
     cloudinary-env-config-mcp:
         source: CloudinaryEnvConfig-MCP-OAS
         sourceNamespace: cloudinary-env-config-mcp-oas
-        sourceRevisionDigest: sha256:ea390d84f6237c95bffd9b4afcf0f6a1587913f1dca778dde9258405d3c450fa
-        sourceBlobDigest: sha256:aacd865d35c2746bc06943e2d2d5d73844feb10d61d35369c7e31d512b822a88
+        sourceRevisionDigest: sha256:db829e6bf09523789e58c6b1d38767772afc1a0e3612e7d1e30a86f3983ee4b4
+        sourceBlobDigest: sha256:2b79ac215d5147f5d4c321e98e6f8f4f41527d81bfe5aa9c2af0d85e30efec14
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

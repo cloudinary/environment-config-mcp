@@ -8,8 +8,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   transformation: z.string().describe(
-    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n"
-      + "",
+    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
 };
 
@@ -31,7 +30,7 @@ Retrieves details for a named or unnamed transformation.
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await transformationsGetTransformation(
+    const [result] = await transformationsGetTransformation(
       client,
       args.transformation,
       { fetchOptions: { signal: ctx.signal } },
@@ -44,8 +43,6 @@ Retrieves details for a named or unnamed transformation.
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

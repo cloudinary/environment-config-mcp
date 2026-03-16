@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type ReplaceUploadMappingsGlobals = { cloud_name?: string | undefined };
 
 export const ReplaceUploadMappingsGlobals$zodSchema: z.ZodType<
-  ReplaceUploadMappingsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ReplaceUploadMappingsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -18,18 +16,15 @@ export const ReplaceUploadMappingsGlobals$zodSchema: z.ZodType<
 
 export type Mapping = { folder: string; template: string };
 
-export const Mapping$zodSchema: z.ZodType<Mapping, z.ZodTypeDef, unknown> = z
-  .object({
-    folder: z.string(),
-    template: z.string(),
-  });
+export const Mapping$zodSchema: z.ZodType<Mapping> = z.object({
+  folder: z.string(),
+  template: z.string(),
+});
 
 export type ReplaceUploadMappingsRequest = { mappings: Array<Mapping> };
 
 export const ReplaceUploadMappingsRequest$zodSchema: z.ZodType<
-  ReplaceUploadMappingsRequest,
-  z.ZodTypeDef,
-  unknown
+  ReplaceUploadMappingsRequest
 > = z.object({
   mappings: z.array(z.lazy(() => Mapping$zodSchema)),
 });
@@ -40,9 +35,7 @@ export const ReplaceUploadMappingsRequest$zodSchema: z.ZodType<
 export type ReplaceUploadMappingsResponseBody = { message: string };
 
 export const ReplaceUploadMappingsResponseBody$zodSchema: z.ZodType<
-  ReplaceUploadMappingsResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ReplaceUploadMappingsResponseBody
 > = z.object({
   message: z.string(),
 }).describe("upload mappings replaced");
@@ -52,9 +45,7 @@ export type ReplaceUploadMappingsResponse =
   | ApiError;
 
 export const ReplaceUploadMappingsResponse$zodSchema: z.ZodType<
-  ReplaceUploadMappingsResponse,
-  z.ZodTypeDef,
-  unknown
+  ReplaceUploadMappingsResponse
 > = z.union([
   z.lazy(() => ReplaceUploadMappingsResponseBody$zodSchema),
   ApiError$zodSchema,

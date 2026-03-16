@@ -9,9 +9,7 @@ import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 export type ListTransformationsGlobals = { cloud_name?: string | undefined };
 
 export const ListTransformationsGlobals$zodSchema: z.ZodType<
-  ListTransformationsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListTransformationsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -24,11 +22,9 @@ export type ListTransformationsRequest = {
 };
 
 export const ListTransformationsRequest$zodSchema: z.ZodType<
-  ListTransformationsRequest,
-  z.ZodTypeDef,
-  unknown
+  ListTransformationsRequest
 > = z.object({
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),
   named: z.boolean().describe(
@@ -42,9 +38,7 @@ export const ListTransformationsRequest$zodSchema: z.ZodType<
 export type ListTransformationsResponse = ApiError | ListResponse;
 
 export const ListTransformationsResponse$zodSchema: z.ZodType<
-  ListTransformationsResponse,
-  z.ZodTypeDef,
-  unknown
+  ListTransformationsResponse
 > = z.union([
   ApiError$zodSchema,
   ListResponse$zodSchema,

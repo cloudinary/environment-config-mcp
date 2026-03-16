@@ -9,9 +9,7 @@ import { UploadPreset, UploadPreset$zodSchema } from "./uploadpreset.js";
 export type GetUploadPresetGlobals = { cloud_name?: string | undefined };
 
 export const GetUploadPresetGlobals$zodSchema: z.ZodType<
-  GetUploadPresetGlobals,
-  z.ZodTypeDef,
-  unknown
+  GetUploadPresetGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -20,9 +18,7 @@ export const GetUploadPresetGlobals$zodSchema: z.ZodType<
 export type GetUploadPresetRequest = { name: string };
 
 export const GetUploadPresetRequest$zodSchema: z.ZodType<
-  GetUploadPresetRequest,
-  z.ZodTypeDef,
-  unknown
+  GetUploadPresetRequest
 > = z.object({
   name: z.string(),
 });
@@ -30,9 +26,7 @@ export const GetUploadPresetRequest$zodSchema: z.ZodType<
 export type GetUploadPresetResponse = ApiError | UploadPreset;
 
 export const GetUploadPresetResponse$zodSchema: z.ZodType<
-  GetUploadPresetResponse,
-  z.ZodTypeDef,
-  unknown
+  GetUploadPresetResponse
 > = z.union([
   ApiError$zodSchema,
   UploadPreset$zodSchema,

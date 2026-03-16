@@ -29,7 +29,7 @@ Retrieves a list of all event triggers and notifications within your product env
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await triggersListTrigger(
+    const [result] = await triggersListTrigger(
       client,
       args.event_type,
       { fetchOptions: { signal: ctx.signal } },
@@ -42,8 +42,6 @@ Retrieves a list of all event triggers and notifications within your product env
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

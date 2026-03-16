@@ -12,9 +12,7 @@ import {
 export type GetStreamingProfilesGlobals = { cloud_name?: string | undefined };
 
 export const GetStreamingProfilesGlobals$zodSchema: z.ZodType<
-  GetStreamingProfilesGlobals,
-  z.ZodTypeDef,
-  unknown
+  GetStreamingProfilesGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,9 +21,7 @@ export const GetStreamingProfilesGlobals$zodSchema: z.ZodType<
 export type GetStreamingProfilesRequest = {};
 
 export const GetStreamingProfilesRequest$zodSchema: z.ZodType<
-  GetStreamingProfilesRequest,
-  z.ZodTypeDef,
-  unknown
+  GetStreamingProfilesRequest
 > = z.object({});
 
 /**
@@ -36,9 +32,7 @@ export type GetStreamingProfilesResponseBody = {
 };
 
 export const GetStreamingProfilesResponseBody$zodSchema: z.ZodType<
-  GetStreamingProfilesResponseBody,
-  z.ZodTypeDef,
-  unknown
+  GetStreamingProfilesResponseBody
 > = z.object({
   data: z.array(StreamingProfile$zodSchema),
 }).describe("Streaming profiles retrieved");
@@ -48,9 +42,7 @@ export type GetStreamingProfilesResponse =
   | ApiError;
 
 export const GetStreamingProfilesResponse$zodSchema: z.ZodType<
-  GetStreamingProfilesResponse,
-  z.ZodTypeDef,
-  unknown
+  GetStreamingProfilesResponse
 > = z.union([
   z.lazy(() => GetStreamingProfilesResponseBody$zodSchema),
   ApiError$zodSchema,

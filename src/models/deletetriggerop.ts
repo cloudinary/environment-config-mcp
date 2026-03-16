@@ -7,24 +7,19 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type DeleteTriggerGlobals = { cloud_name?: string | undefined };
 
-export const DeleteTriggerGlobals$zodSchema: z.ZodType<
-  DeleteTriggerGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const DeleteTriggerGlobals$zodSchema: z.ZodType<DeleteTriggerGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type DeleteTriggerRequest = { id: string };
 
-export const DeleteTriggerRequest$zodSchema: z.ZodType<
-  DeleteTriggerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
+export const DeleteTriggerRequest$zodSchema: z.ZodType<DeleteTriggerRequest> = z
+  .object({
+    id: z.string(),
+  });
 
 /**
  * Trigger deleted successfully
@@ -32,20 +27,15 @@ export const DeleteTriggerRequest$zodSchema: z.ZodType<
 export type DeleteTriggerResponseBody = { message: string };
 
 export const DeleteTriggerResponseBody$zodSchema: z.ZodType<
-  DeleteTriggerResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteTriggerResponseBody
 > = z.object({
   message: z.string(),
 }).describe("Trigger deleted successfully");
 
 export type DeleteTriggerResponse = DeleteTriggerResponseBody | ApiError;
 
-export const DeleteTriggerResponse$zodSchema: z.ZodType<
-  DeleteTriggerResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => DeleteTriggerResponseBody$zodSchema),
-  ApiError$zodSchema,
-]);
+export const DeleteTriggerResponse$zodSchema: z.ZodType<DeleteTriggerResponse> =
+  z.union([
+    z.lazy(() => DeleteTriggerResponseBody$zodSchema),
+    ApiError$zodSchema,
+  ]);
