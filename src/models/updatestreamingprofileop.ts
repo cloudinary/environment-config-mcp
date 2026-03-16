@@ -16,9 +16,7 @@ import {
 export type UpdateStreamingProfileGlobals = { cloud_name?: string | undefined };
 
 export const UpdateStreamingProfileGlobals$zodSchema: z.ZodType<
-  UpdateStreamingProfileGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateStreamingProfileGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -30,9 +28,7 @@ export type UpdateStreamingProfileRequest = {
 };
 
 export const UpdateStreamingProfileRequest$zodSchema: z.ZodType<
-  UpdateStreamingProfileRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateStreamingProfileRequest
 > = z.object({
   name: z.string(),
   streaming_profile_update: StreamingProfileUpdate$zodSchema,
@@ -47,9 +43,7 @@ export type UpdateStreamingProfileResponseBody = {
 };
 
 export const UpdateStreamingProfileResponseBody$zodSchema: z.ZodType<
-  UpdateStreamingProfileResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateStreamingProfileResponseBody
 > = z.object({
   data: StreamingProfile$zodSchema,
   message: z.string(),
@@ -60,9 +54,7 @@ export type UpdateStreamingProfileResponse =
   | ApiError;
 
 export const UpdateStreamingProfileResponse$zodSchema: z.ZodType<
-  UpdateStreamingProfileResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateStreamingProfileResponse
 > = z.union([
   z.lazy(() => UpdateStreamingProfileResponseBody$zodSchema),
   ApiError$zodSchema,

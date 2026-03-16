@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import {
   AccessControlItem,
   AccessControlItem$zodSchema,
@@ -13,80 +14,21 @@ import {
  */
 export type AutoTranscription = { translate?: Array<string> | undefined };
 
-export const AutoTranscription$zodSchema: z.ZodType<
-  AutoTranscription,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  translate: z.array(z.string()).optional(),
-}).describe(
-  "Configuration object for automatic video transcription with translation options.",
-);
+export const AutoTranscription$zodSchema: z.ZodType<AutoTranscription> = z
+  .object({
+    translate: z.array(z.string()).optional(),
+  }).describe(
+    "Configuration object for automatic video transcription with translation options.",
+  );
 
 export type AutoTranscriptionUnion = boolean | AutoTranscription;
 
 export const AutoTranscriptionUnion$zodSchema: z.ZodType<
-  AutoTranscriptionUnion,
-  z.ZodTypeDef,
-  unknown
+  AutoTranscriptionUnion
 > = z.union([
   z.boolean(),
   z.lazy(() => AutoTranscription$zodSchema),
 ]);
-
-/**
- * For all asset types, set to:
- *
- * @remarks
- * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
- * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
- *
- * For images only, set to:
- * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
- * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
- * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
- *
- * For videos only, set to:
- * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
- * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
- *
- * To request multiple moderations in a single API call:
- * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
- *
- * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
- */
-export const Moderation$zodSchema = z.enum([
-  "manual",
-  "webpurify",
-  "metascan",
-  "aws_rek",
-  "aws_rek_video",
-  "google_video_moderation",
-  "perception_point",
-  "duplicate",
-  "cld",
-]).describe(
-  "For all asset types, set to:\n"
-    + "- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n"
-    + "- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n"
-    + "\n"
-    + "For images only, set to:\n"
-    + "- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n"
-    + "- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n"
-    + "- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n"
-    + "\n"
-    + "For videos only, set to:\n"
-    + "- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n"
-    + "- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n"
-    + "\n"
-    + "To request multiple moderations in a single API call:\n"
-    + "- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n"
-    + "\n"
-    + "Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n"
-    + "",
-);
-
-export type Moderation = z.infer<typeof Moderation$zodSchema>;
 
 export type ResponsiveBreakpoint = {
   create_derived?: boolean | undefined;
@@ -97,22 +39,30 @@ export type ResponsiveBreakpoint = {
   transformation?: string | undefined;
 };
 
-export const ResponsiveBreakpoint$zodSchema: z.ZodType<
-  ResponsiveBreakpoint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  bytes_step: z.number().int().optional(),
-  create_derived: z.boolean().optional(),
-  max_images: z.number().int().optional(),
-  max_width: z.number().int().optional(),
-  min_width: z.number().int().optional(),
-  transformation: z.string().optional(),
-});
+export const ResponsiveBreakpoint$zodSchema: z.ZodType<ResponsiveBreakpoint> = z
+  .object({
+    bytes_step: z.int().optional(),
+    create_derived: z.boolean().optional(),
+    max_images: z.int().optional(),
+    max_width: z.int().optional(),
+    min_width: z.int().optional(),
+    transformation: z.string().optional(),
+  });
 
 /**
  * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
  */
+export const Type = {
+  Upload: "upload",
+  Authenticated: "authenticated",
+  Private: "private",
+  Asset: "asset",
+} as const;
+/**
+ * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
+ */
+export type Type = ClosedEnum<typeof Type>;
+
 export const Type$zodSchema = z.enum([
   "upload",
   "authenticated",
@@ -122,8 +72,6 @@ export const Type$zodSchema = z.enum([
   "The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.",
 );
 
-export type Type = z.infer<typeof Type$zodSchema>;
-
 /**
  * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
  *
@@ -131,75 +79,34 @@ export type Type = z.infer<typeof Type$zodSchema>;
  *
  * @deprecated enum: The access_mode parameter is no longer supported. To restrict access to assets, you can use the access_control parameter.. Use access_control instead.
  */
+export const AccessMode = {
+  Public: "public",
+  Authenticated: "authenticated",
+} as const;
+/**
+ * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+ *
+ * @remarks
+ *
+ * @deprecated enum: The access_mode parameter is no longer supported. To restrict access to assets, you can use the access_control parameter.. Use access_control instead.
+ */
+export type AccessMode = ClosedEnum<typeof AccessMode>;
+
 export const AccessMode$zodSchema = z.enum([
   "public",
   "authenticated",
 ]).describe(
-  "Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.\n"
-    + "",
+  "Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.\n",
 );
 
-export type AccessMode = z.infer<typeof AccessMode$zodSchema>;
-
-/**
- * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
- */
-export const Categorization$zodSchema = z.enum([
-  "rekognition_scene",
-  "imagga_tagging",
-  "aws_rek_tagging",
-  "google_video_tagging",
-  "google_tagging",
-  "visenze_recognition",
-  "azure_video_indexer",
-]).describe(
-  "A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.",
-);
-
-export type Categorization = z.infer<typeof Categorization$zodSchema>;
-
-/**
- * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
- */
-export const Ocr$zodSchema = z.enum([
-  "adv_ocr",
-]).describe(
-  "Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.",
-);
-
-export type Ocr = z.infer<typeof Ocr$zodSchema>;
-
-/**
- * Automatically remove the background of an image using an add-on.
- *
- * @remarks
- * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
- * - Note: this feature has been superseded by background removal on the fly.
- * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
- * Relevant for images only.
- */
-export const BackgroundRemoval$zodSchema = z.enum([
-  "cloudinary_ai",
-  "remove_the_background",
-  "pixelz",
-]).describe(
-  "Automatically remove the background of an image using an add-on.\n"
-    + "- Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.\n"
-    + "- Note: this feature has been superseded by background removal on the fly.\n"
-    + "- Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.\n"
-    + "Relevant for images only.\n"
-    + "",
-);
-
-export type BackgroundRemoval = z.infer<typeof BackgroundRemoval$zodSchema>;
+export const ParameterWhitelistEnum = {
+  None: "none",
+} as const;
+export type ParameterWhitelistEnum = ClosedEnum<typeof ParameterWhitelistEnum>;
 
 export const ParameterWhitelistEnum$zodSchema = z.enum([
   "none",
 ]);
-
-export type ParameterWhitelistEnum = z.infer<
-  typeof ParameterWhitelistEnum$zodSchema
->;
 
 /**
  * The parameters that are allowed be used in an upload request utilizing this preset. If not specified or empty array, all parameters are allowed. If "none", no parameters are allowed.
@@ -208,17 +115,13 @@ export type ParameterWhitelistEnum = z.infer<
  */
 export type ParameterWhitelist = Array<string> | ParameterWhitelistEnum;
 
-export const ParameterWhitelist$zodSchema: z.ZodType<
-  ParameterWhitelist,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.array(z.string()),
-  ParameterWhitelistEnum$zodSchema,
-]).describe(
-  "The parameters that are allowed be used in an upload request utilizing this preset. If not specified or empty array, all parameters are allowed. If \"none\", no parameters are allowed.\n"
-    + "",
-);
+export const ParameterWhitelist$zodSchema: z.ZodType<ParameterWhitelist> = z
+  .union([
+    z.array(z.string()),
+    ParameterWhitelistEnum$zodSchema,
+  ]).describe(
+    "The parameters that are allowed be used in an upload request utilizing this preset. If not specified or empty array, all parameters are allowed. If \"none\", no parameters are allowed.\n",
+  );
 
 export type UploadPreset = {
   accessibility_analysis?: boolean | undefined;
@@ -240,7 +143,7 @@ export type UploadPreset = {
   invalidate?: boolean | undefined;
   media_metadata?: boolean | undefined;
   metadata?: string | undefined;
-  moderation?: Moderation | undefined;
+  moderation?: string | undefined;
   notification_url?: string | undefined;
   phash?: boolean | undefined;
   quality_analysis?: boolean | undefined;
@@ -254,10 +157,10 @@ export type UploadPreset = {
   return_delete_token?: boolean | undefined;
   type?: Type | undefined;
   access_mode?: AccessMode | undefined;
-  categorization?: Categorization | undefined;
-  ocr?: Ocr | undefined;
+  categorization?: string | undefined;
+  ocr?: string | undefined;
   raw_convert?: string | undefined;
-  background_removal?: BackgroundRemoval | undefined;
+  background_removal?: string | undefined;
   public_id?: string | undefined;
   transformation?: string | undefined;
   format?: string | undefined;
@@ -284,11 +187,7 @@ export type UploadPreset = {
   parameter_whitelist?: Array<string> | ParameterWhitelistEnum | undefined;
 };
 
-export const UploadPreset$zodSchema: z.ZodType<
-  UploadPreset,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UploadPreset$zodSchema: z.ZodType<UploadPreset> = z.object({
   access_control: z.array(AccessControlItem$zodSchema).optional(),
   access_mode: AccessMode$zodSchema.optional(),
   accessibility_analysis: z.boolean().optional(),
@@ -301,10 +200,10 @@ export const UploadPreset$zodSchema: z.ZodType<
     z.boolean(),
     z.lazy(() => AutoTranscription$zodSchema),
   ]).optional(),
-  background_removal: BackgroundRemoval$zodSchema.optional(),
+  background_removal: z.string().optional(),
   backup: z.boolean().optional(),
   callback: z.string().optional(),
-  categorization: Categorization$zodSchema.optional(),
+  categorization: z.string().optional(),
   cinemagraph_analysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),
@@ -326,10 +225,10 @@ export const UploadPreset$zodSchema: z.ZodType<
   invalidate: z.boolean().optional(),
   media_metadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: Moderation$zodSchema.optional(),
+  moderation: z.string().optional(),
   name: z.string().optional(),
   notification_url: z.string().optional(),
-  ocr: Ocr$zodSchema.optional(),
+  ocr: z.string().optional(),
   on_success: z.string().optional(),
   overwrite: z.boolean().optional(),
   parameter_whitelist: z.union([

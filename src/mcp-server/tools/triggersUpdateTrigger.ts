@@ -28,7 +28,7 @@ Updates a notification URL for a trigger.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await triggersUpdateTrigger(
+    const [result] = await triggersUpdateTrigger(
       client,
       args.id,
       args.RequestBody,
@@ -42,8 +42,6 @@ Updates a notification URL for a trigger.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

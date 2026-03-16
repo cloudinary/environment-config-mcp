@@ -4,7 +4,6 @@
 
 import { CloudinaryEnvConfigCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -14,8 +13,6 @@ import { CreateRequest } from "../models/createrequest.js";
 import {
   CreateTransformationRequest,
   CreateTransformationRequest$zodSchema,
-  CreateTransformationResponse,
-  CreateTransformationResponse$zodSchema,
 } from "../models/createtransformationop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -42,7 +39,7 @@ export function transformationsCreateTransformation(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    CreateTransformationResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -68,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      CreateTransformationResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -163,26 +160,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    CreateTransformationResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, CreateTransformationResponse$zodSchema, { key: "object" }),
-    M.json([400, 401, 403, 409], CreateTransformationResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

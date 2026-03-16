@@ -28,7 +28,7 @@ export const tool$streamingProfilesUpdateStreamingProfile: ToolDefinition<
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await streamingProfilesUpdateStreamingProfile(
+    const [result] = await streamingProfilesUpdateStreamingProfile(
       client,
       args.name,
       args.streaming_profile_update,
@@ -42,8 +42,6 @@ export const tool$streamingProfilesUpdateStreamingProfile: ToolDefinition<
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

@@ -14,11 +14,7 @@ export type UploadMapping = {
   upload_preset_name?: string | null | undefined;
 };
 
-export const UploadMapping$zodSchema: z.ZodType<
-  UploadMapping,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UploadMapping$zodSchema: z.ZodType<UploadMapping> = z.object({
   external_id: z.string(),
   folder: z.string(),
   template: z.string(),

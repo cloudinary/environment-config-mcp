@@ -25,7 +25,7 @@ Deletes a trigger.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await triggersDeleteTrigger(
+    const [result] = await triggersDeleteTrigger(
       client,
       args.id,
       { fetchOptions: { signal: ctx.signal } },
@@ -38,8 +38,6 @@ Deletes a trigger.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

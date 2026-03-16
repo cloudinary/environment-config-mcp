@@ -3,19 +3,25 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { UploadPreset, UploadPreset$zodSchema } from "./uploadpreset.js";
 
 export type ListUploadPresetsGlobals = { cloud_name?: string | undefined };
 
 export const ListUploadPresetsGlobals$zodSchema: z.ZodType<
-  ListUploadPresetsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListUploadPresetsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
+
+export const OrderBy = {
+  Name: "name",
+  Id: "id",
+  UpdatedAt: "updated_at",
+} as const;
+export type OrderBy = ClosedEnum<typeof OrderBy>;
 
 export const OrderBy$zodSchema = z.enum([
   "name",
@@ -23,14 +29,16 @@ export const OrderBy$zodSchema = z.enum([
   "updated_at",
 ]);
 
-export type OrderBy = z.infer<typeof OrderBy$zodSchema>;
+export const Direction = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+export type Direction = ClosedEnum<typeof Direction>;
 
 export const Direction$zodSchema = z.enum([
   "asc",
   "desc",
 ]);
-
-export type Direction = z.infer<typeof Direction$zodSchema>;
 
 export type ListUploadPresetsRequest = {
   order_by?: OrderBy | undefined;
@@ -39,9 +47,7 @@ export type ListUploadPresetsRequest = {
 };
 
 export const ListUploadPresetsRequest$zodSchema: z.ZodType<
-  ListUploadPresetsRequest,
-  z.ZodTypeDef,
-  unknown
+  ListUploadPresetsRequest
 > = z.object({
   direction: Direction$zodSchema.optional(),
   next_cursor: z.string().describe(
@@ -56,9 +62,7 @@ export const ListUploadPresetsRequest$zodSchema: z.ZodType<
 export type ListUploadPresetsResponseBody = { presets: Array<UploadPreset> };
 
 export const ListUploadPresetsResponseBody$zodSchema: z.ZodType<
-  ListUploadPresetsResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListUploadPresetsResponseBody
 > = z.object({
   presets: z.array(UploadPreset$zodSchema),
 }).describe("upload presets retrieved");
@@ -68,9 +72,7 @@ export type ListUploadPresetsResponse =
   | ApiError;
 
 export const ListUploadPresetsResponse$zodSchema: z.ZodType<
-  ListUploadPresetsResponse,
-  z.ZodTypeDef,
-  unknown
+  ListUploadPresetsResponse
 > = z.union([
   z.lazy(() => ListUploadPresetsResponseBody$zodSchema),
   ApiError$zodSchema,

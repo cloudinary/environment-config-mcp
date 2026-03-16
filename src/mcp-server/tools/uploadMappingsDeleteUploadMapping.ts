@@ -27,7 +27,7 @@ Permanently deletes the upload mapping for the specified folder`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await uploadMappingsDeleteUploadMapping(
+    const [result] = await uploadMappingsDeleteUploadMapping(
       client,
       args.folder,
       { fetchOptions: { signal: ctx.signal } },
@@ -40,8 +40,6 @@ Permanently deletes the upload mapping for the specified folder`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

@@ -26,7 +26,7 @@ export const tool$streamingProfilesDeleteStreamingProfile: ToolDefinition<
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await streamingProfilesDeleteStreamingProfile(
+    const [result] = await streamingProfilesDeleteStreamingProfile(
       client,
       args.name,
       { fetchOptions: { signal: ctx.signal } },
@@ -39,8 +39,6 @@ export const tool$streamingProfilesDeleteStreamingProfile: ToolDefinition<
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

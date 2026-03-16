@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type CreateUploadPresetGlobals = { cloud_name?: string | undefined };
 
 export const CreateUploadPresetGlobals$zodSchema: z.ZodType<
-  CreateUploadPresetGlobals,
-  z.ZodTypeDef,
-  unknown
+  CreateUploadPresetGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -26,9 +24,7 @@ export type CreateUploadPresetResponseBody = {
 };
 
 export const CreateUploadPresetResponseBody$zodSchema: z.ZodType<
-  CreateUploadPresetResponseBody,
-  z.ZodTypeDef,
-  unknown
+  CreateUploadPresetResponseBody
 > = z.object({
   external_id: z.string(),
   message: z.string(),
@@ -40,9 +36,7 @@ export type CreateUploadPresetResponse =
   | ApiError;
 
 export const CreateUploadPresetResponse$zodSchema: z.ZodType<
-  CreateUploadPresetResponse,
-  z.ZodTypeDef,
-  unknown
+  CreateUploadPresetResponse
 > = z.union([
   z.lazy(() => CreateUploadPresetResponseBody$zodSchema),
   ApiError$zodSchema,

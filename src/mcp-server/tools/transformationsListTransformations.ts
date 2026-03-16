@@ -10,7 +10,7 @@ const args = {
   named: z.boolean().describe(
     "Whether to return only named (`true`) or unnamed (`false`) transformations. If this parameter isn't included, both named and unnamed transformations will be returned.",
   ).optional(),
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),
   next_cursor: z.string().describe(
@@ -37,7 +37,7 @@ Retrieves a list of all transformations, which can be filtered to show either on
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await transformationsListTransformations(
+    const [result] = await transformationsListTransformations(
       client,
       args.named,
       args.max_results,
@@ -52,8 +52,6 @@ Retrieves a list of all transformations, which can be filtered to show either on
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

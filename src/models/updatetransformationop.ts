@@ -9,9 +9,7 @@ import { UpdateRequest, UpdateRequest$zodSchema } from "./updaterequest.js";
 export type UpdateTransformationGlobals = { cloud_name?: string | undefined };
 
 export const UpdateTransformationGlobals$zodSchema: z.ZodType<
-  UpdateTransformationGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateTransformationGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,13 +21,10 @@ export type UpdateTransformationRequest = {
 };
 
 export const UpdateTransformationRequest$zodSchema: z.ZodType<
-  UpdateTransformationRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateTransformationRequest
 > = z.object({
   transformation: z.string().describe(
-    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n"
-      + "",
+    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
   update_request: UpdateRequest$zodSchema,
 });
@@ -40,9 +35,7 @@ export const UpdateTransformationRequest$zodSchema: z.ZodType<
 export type UpdateTransformationResponseBody = { message?: string | undefined };
 
 export const UpdateTransformationResponseBody$zodSchema: z.ZodType<
-  UpdateTransformationResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateTransformationResponseBody
 > = z.object({
   message: z.string().optional(),
 }).describe("Transformation updated");
@@ -52,9 +45,7 @@ export type UpdateTransformationResponse =
   | UpdateTransformationResponseBody;
 
 export const UpdateTransformationResponse$zodSchema: z.ZodType<
-  UpdateTransformationResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateTransformationResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => UpdateTransformationResponseBody$zodSchema),

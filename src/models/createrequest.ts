@@ -9,11 +9,7 @@ export type CreateRequest = {
   allowed_for_strict?: boolean | undefined;
 };
 
-export const CreateRequest$zodSchema: z.ZodType<
-  CreateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const CreateRequest$zodSchema: z.ZodType<CreateRequest> = z.object({
   allowed_for_strict: z.boolean().optional(),
   transformation: z.string(),
 });

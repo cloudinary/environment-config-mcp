@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type DeleteTransformationGlobals = { cloud_name?: string | undefined };
 
 export const DeleteTransformationGlobals$zodSchema: z.ZodType<
-  DeleteTransformationGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteTransformationGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -22,16 +20,13 @@ export type DeleteTransformationRequest = {
 };
 
 export const DeleteTransformationRequest$zodSchema: z.ZodType<
-  DeleteTransformationRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteTransformationRequest
 > = z.object({
   invalidate: z.boolean().describe(
     "Invalidate derived resources generated using the deleted transformation from CDN.",
   ).optional(),
   transformation: z.string().describe(
-    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n"
-      + "",
+    "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
 });
 
@@ -41,9 +36,7 @@ export const DeleteTransformationRequest$zodSchema: z.ZodType<
 export type DeleteTransformationResponseBody = { message?: string | undefined };
 
 export const DeleteTransformationResponseBody$zodSchema: z.ZodType<
-  DeleteTransformationResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteTransformationResponseBody
 > = z.object({
   message: z.string().optional(),
 }).describe("Transformation deleted");
@@ -53,9 +46,7 @@ export type DeleteTransformationResponse =
   | DeleteTransformationResponseBody;
 
 export const DeleteTransformationResponse$zodSchema: z.ZodType<
-  DeleteTransformationResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteTransformationResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => DeleteTransformationResponseBody$zodSchema),

@@ -9,9 +9,7 @@ import { UploadMapping, UploadMapping$zodSchema } from "./uploadmapping.js";
 export type ListUploadMappingsGlobals = { cloud_name?: string | undefined };
 
 export const ListUploadMappingsGlobals$zodSchema: z.ZodType<
-  ListUploadMappingsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListUploadMappingsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -24,14 +22,12 @@ export type ListUploadMappingsRequest = {
 };
 
 export const ListUploadMappingsRequest$zodSchema: z.ZodType<
-  ListUploadMappingsRequest,
-  z.ZodTypeDef,
-  unknown
+  ListUploadMappingsRequest
 > = z.object({
   folder: z.string().describe(
     "Get details of a specific mapping by folder name",
   ).optional(),
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),
   next_cursor: z.string().describe(
@@ -48,14 +44,10 @@ export type ResponseBody = {
   next_cursor?: string | undefined;
 };
 
-export const ResponseBody$zodSchema: z.ZodType<
-  ResponseBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const ResponseBody$zodSchema: z.ZodType<ResponseBody> = z.object({
   mappings: z.array(UploadMapping$zodSchema),
   next_cursor: z.string().optional(),
-  total_entries: z.number().int(),
+  total_entries: z.int(),
 }).describe("List response");
 
 /**
@@ -64,9 +56,7 @@ export const ResponseBody$zodSchema: z.ZodType<
 export type ListUploadMappingsResponseBody = UploadMapping | ResponseBody;
 
 export const ListUploadMappingsResponseBody$zodSchema: z.ZodType<
-  ListUploadMappingsResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListUploadMappingsResponseBody
 > = z.union([
   UploadMapping$zodSchema,
   z.lazy(() => ResponseBody$zodSchema),
@@ -78,9 +68,7 @@ export type ListUploadMappingsResponse =
   | ResponseBody;
 
 export const ListUploadMappingsResponse$zodSchema: z.ZodType<
-  ListUploadMappingsResponse,
-  z.ZodTypeDef,
-  unknown
+  ListUploadMappingsResponse
 > = z.union([
   ApiError$zodSchema,
   z.union([

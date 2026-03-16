@@ -26,7 +26,7 @@ export const tool$streamingProfilesCreateStreamingProfile: ToolDefinition<
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await streamingProfilesCreateStreamingProfile(
+    const [result] = await streamingProfilesCreateStreamingProfile(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -39,8 +39,6 @@ export const tool$streamingProfilesCreateStreamingProfile: ToolDefinition<
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

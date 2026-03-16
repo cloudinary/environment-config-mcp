@@ -8,33 +8,25 @@ import { TriggerInfo, TriggerInfo$zodSchema } from "./triggerinfo.js";
 
 export type CreateTriggerGlobals = { cloud_name?: string | undefined };
 
-export const CreateTriggerGlobals$zodSchema: z.ZodType<
-  CreateTriggerGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const CreateTriggerGlobals$zodSchema: z.ZodType<CreateTriggerGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type CreateTriggerRequest = { uri: string; event_type: string };
 
-export const CreateTriggerRequest$zodSchema: z.ZodType<
-  CreateTriggerRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  event_type: z.string(),
-  uri: z.string(),
-});
+export const CreateTriggerRequest$zodSchema: z.ZodType<CreateTriggerRequest> = z
+  .object({
+    event_type: z.string(),
+    uri: z.string(),
+  });
 
 export type CreateTriggerResponse = TriggerInfo | ApiError;
 
-export const CreateTriggerResponse$zodSchema: z.ZodType<
-  CreateTriggerResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  TriggerInfo$zodSchema,
-  ApiError$zodSchema,
-]);
+export const CreateTriggerResponse$zodSchema: z.ZodType<CreateTriggerResponse> =
+  z.union([
+    TriggerInfo$zodSchema,
+    ApiError$zodSchema,
+  ]);

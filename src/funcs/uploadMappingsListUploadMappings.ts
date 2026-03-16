@@ -4,7 +4,6 @@
 
 import { CloudinaryEnvConfigCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,8 +21,6 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ListUploadMappingsRequest,
   ListUploadMappingsRequest$zodSchema,
-  ListUploadMappingsResponse,
-  ListUploadMappingsResponse$zodSchema,
 } from "../models/listuploadmappingsop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,7 +40,7 @@ export function uploadMappingsListUploadMappings(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    ListUploadMappingsResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -71,7 +68,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      ListUploadMappingsResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -166,26 +163,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    ListUploadMappingsResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, ListUploadMappingsResponse$zodSchema, { key: "oneOf" }),
-    M.json([400, 401, 404], ListUploadMappingsResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

@@ -11,13 +11,10 @@ export type TransformationSummary = {
   named?: boolean | undefined;
 };
 
-export const TransformationSummary$zodSchema: z.ZodType<
-  TransformationSummary,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  allowed_for_strict: z.boolean().optional(),
-  name: z.string().optional(),
-  named: z.boolean().optional(),
-  used: z.boolean().optional(),
-});
+export const TransformationSummary$zodSchema: z.ZodType<TransformationSummary> =
+  z.object({
+    allowed_for_strict: z.boolean().optional(),
+    name: z.string().optional(),
+    named: z.boolean().optional(),
+    used: z.boolean().optional(),
+  });

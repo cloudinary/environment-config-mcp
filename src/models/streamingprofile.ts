@@ -8,12 +8,8 @@ export type Representation = {
   transformation?: Array<{ [k: string]: any }> | undefined;
 };
 
-export const Representation$zodSchema: z.ZodType<
-  Representation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  transformation: z.array(z.record(z.any())).optional(),
+export const Representation$zodSchema: z.ZodType<Representation> = z.object({
+  transformation: z.array(z.record(z.string(), z.any())).optional(),
 });
 
 export type StreamingProfile = {
@@ -24,14 +20,12 @@ export type StreamingProfile = {
   representations?: Array<Representation> | undefined;
 };
 
-export const StreamingProfile$zodSchema: z.ZodType<
-  StreamingProfile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  display_name: z.string().nullable().optional(),
-  external_id: z.string(),
-  name: z.string(),
-  predefined: z.boolean(),
-  representations: z.array(z.lazy(() => Representation$zodSchema)).optional(),
-});
+export const StreamingProfile$zodSchema: z.ZodType<StreamingProfile> = z.object(
+  {
+    display_name: z.string().nullable().optional(),
+    external_id: z.string(),
+    name: z.string(),
+    predefined: z.boolean(),
+    representations: z.array(z.lazy(() => Representation$zodSchema)).optional(),
+  },
+);

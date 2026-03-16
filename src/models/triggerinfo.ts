@@ -15,16 +15,12 @@ export type TriggerInfo = {
   updated_at?: string | undefined;
 };
 
-export const TriggerInfo$zodSchema: z.ZodType<
-  TriggerInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  created_at: z.string().datetime({ offset: true }).optional(),
+export const TriggerInfo$zodSchema: z.ZodType<TriggerInfo> = z.object({
+  created_at: z.iso.datetime({ offset: true }).optional(),
   event_type: z.string().optional(),
   id: z.string().optional(),
   product_environment_id: z.string().optional(),
-  updated_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
   uri: z.string(),
   uri_type: UriType$zodSchema,
 });

@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type UpdateUploadMappingGlobals = { cloud_name?: string | undefined };
 
 export const UpdateUploadMappingGlobals$zodSchema: z.ZodType<
-  UpdateUploadMappingGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadMappingGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -19,9 +17,7 @@ export const UpdateUploadMappingGlobals$zodSchema: z.ZodType<
 export type UpdateUploadMappingRequest = { folder: string; template: string };
 
 export const UpdateUploadMappingRequest$zodSchema: z.ZodType<
-  UpdateUploadMappingRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadMappingRequest
 > = z.object({
   folder: z.string(),
   template: z.string(),
@@ -36,9 +32,7 @@ export type UpdateUploadMappingResponseBody = {
 };
 
 export const UpdateUploadMappingResponseBody$zodSchema: z.ZodType<
-  UpdateUploadMappingResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadMappingResponseBody
 > = z.object({
   external_id: z.string(),
   message: z.string(),
@@ -49,9 +43,7 @@ export type UpdateUploadMappingResponse =
   | ApiError;
 
 export const UpdateUploadMappingResponse$zodSchema: z.ZodType<
-  UpdateUploadMappingResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateUploadMappingResponse
 > = z.union([
   z.lazy(() => UpdateUploadMappingResponseBody$zodSchema),
   ApiError$zodSchema,

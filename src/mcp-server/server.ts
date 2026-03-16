@@ -12,7 +12,7 @@ import {
   createRegisterResourceTemplate,
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
-import { createRegisterTool } from "./tools.js";
+import { createRegisterTool, registerDynamicTools } from "./tools.js";
 import { tool$streamingProfilesCreateStreamingProfile } from "./tools/streamingProfilesCreateStreamingProfile.js";
 import { tool$streamingProfilesDeleteStreamingProfile } from "./tools/streamingProfilesDeleteStreamingProfile.js";
 import { tool$streamingProfilesGetStreamingProfile } from "./tools/streamingProfilesGetStreamingProfile.js";
@@ -26,6 +26,7 @@ import { tool$transformationsUpdateTransformation } from "./tools/transformation
 import { tool$triggersCreateTrigger } from "./tools/triggersCreateTrigger.js";
 import { tool$triggersDeleteTrigger } from "./tools/triggersDeleteTrigger.js";
 import { tool$triggersListTrigger } from "./tools/triggersListTrigger.js";
+import { tool$triggersTestTrigger } from "./tools/triggersTestTrigger.js";
 import { tool$triggersUpdateTrigger } from "./tools/triggersUpdateTrigger.js";
 import { tool$uploadMappingsCreateUploadMapping } from "./tools/uploadMappingsCreateUploadMapping.js";
 import { tool$uploadMappingsDeleteUploadMapping } from "./tools/uploadMappingsDeleteUploadMapping.js";
@@ -40,6 +41,7 @@ import { tool$uploadPresetsUpdateUploadPreset } from "./tools/uploadPresetsUpdat
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
   allowedTools?: string[] | undefined;
+  dynamic?: boolean | undefined;
   scopes?: MCPScope[] | undefined;
   getSDK?: () => CloudinaryEnvConfigCore;
   serverURL?: string | undefined;
@@ -51,7 +53,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryEnvConfig",
-    version: "0.5.0",
+    version: "0.6.0",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -74,12 +76,13 @@ export function createMCPServer(deps: {
   const scopes = new Set(deps.scopes);
 
   const allowedTools = deps.allowedTools && new Set(deps.allowedTools);
-  const tool = createRegisterTool(
+  const [tool, tools, toolMap] = createRegisterTool(
     deps.logger,
     server,
     getClient,
     scopes,
     allowedTools,
+    deps.dynamic,
   );
   const resource = createRegisterResource(
     deps.logger,
@@ -115,11 +118,16 @@ export function createMCPServer(deps: {
   tool(tool$triggersCreateTrigger);
   tool(tool$triggersUpdateTrigger);
   tool(tool$triggersDeleteTrigger);
+  tool(tool$triggersTestTrigger);
   tool(tool$streamingProfilesCreateStreamingProfile);
   tool(tool$streamingProfilesGetStreamingProfiles);
   tool(tool$streamingProfilesGetStreamingProfile);
   tool(tool$streamingProfilesUpdateStreamingProfile);
   tool(tool$streamingProfilesDeleteStreamingProfile);
 
-  return server;
+  if (deps.dynamic) {
+    registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
+  }
+
+  return { server, tools };
 }

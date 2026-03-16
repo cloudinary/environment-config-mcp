@@ -4,18 +4,48 @@
 
 import * as z from "zod";
 
+/**
+ * Width - integer pixels or string variable reference (e.g., "$w")
+ */
+export type Width = number | string;
+
+export const Width$zodSchema: z.ZodType<Width> = z.union([
+  z.int(),
+  z.string(),
+]).describe(
+  "Width - integer pixels or string variable reference (e.g., \"$w\")",
+);
+
+/**
+ * Height - integer pixels or string variable reference (e.g., "$h")
+ */
+export type Height = number | string;
+
+export const Height$zodSchema: z.ZodType<Height> = z.union([
+  z.int(),
+  z.string(),
+]).describe(
+  "Height - integer pixels or string variable reference (e.g., \"$h\")",
+);
+
 export type Info = {
-  width?: number | undefined;
-  height?: number | undefined;
+  width?: number | string | undefined;
+  height?: number | string | undefined;
   crop?: string | undefined;
   gravity?: string | undefined;
 };
 
-export const Info$zodSchema: z.ZodType<Info, z.ZodTypeDef, unknown> = z.object({
+export const Info$zodSchema: z.ZodType<Info> = z.object({
   crop: z.string().optional(),
   gravity: z.string().optional(),
-  height: z.number().int().optional(),
-  width: z.number().int().optional(),
+  height: z.union([
+    z.int(),
+    z.string(),
+  ]).optional(),
+  width: z.union([
+    z.int(),
+    z.string(),
+  ]).optional(),
 });
 
 export type Derived = {
@@ -29,17 +59,16 @@ export type Derived = {
   id?: string | undefined;
 };
 
-export const Derived$zodSchema: z.ZodType<Derived, z.ZodTypeDef, unknown> = z
-  .object({
-    bytes: z.number().int().optional(),
-    format: z.string().optional(),
-    id: z.string().optional(),
-    public_id: z.string().optional(),
-    resource_type: z.string().optional(),
-    secure_url: z.string().optional(),
-    type: z.string().optional(),
-    url: z.string().optional(),
-  });
+export const Derived$zodSchema: z.ZodType<Derived> = z.object({
+  bytes: z.int().optional(),
+  format: z.string().optional(),
+  id: z.string().optional(),
+  public_id: z.string().optional(),
+  resource_type: z.string().optional(),
+  secure_url: z.string().optional(),
+  type: z.string().optional(),
+  url: z.string().optional(),
+});
 
 export type TransformationInfo = {
   name?: string | undefined;
@@ -51,16 +80,13 @@ export type TransformationInfo = {
   next_cursor?: string | undefined;
 };
 
-export const TransformationInfo$zodSchema: z.ZodType<
-  TransformationInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  allowed_for_strict: z.boolean().optional(),
-  derived: z.array(z.lazy(() => Derived$zodSchema)).optional(),
-  info: z.array(z.lazy(() => Info$zodSchema)).optional(),
-  name: z.string().optional(),
-  named: z.boolean().optional(),
-  next_cursor: z.string().optional(),
-  used: z.boolean().optional(),
-});
+export const TransformationInfo$zodSchema: z.ZodType<TransformationInfo> = z
+  .object({
+    allowed_for_strict: z.boolean().optional(),
+    derived: z.array(z.lazy(() => Derived$zodSchema)).optional(),
+    info: z.array(z.lazy(() => Info$zodSchema)).optional(),
+    name: z.string().optional(),
+    named: z.boolean().optional(),
+    next_cursor: z.string().optional(),
+    used: z.boolean().optional(),
+  });

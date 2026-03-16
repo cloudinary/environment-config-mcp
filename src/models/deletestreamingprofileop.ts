@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type DeleteStreamingProfileGlobals = { cloud_name?: string | undefined };
 
 export const DeleteStreamingProfileGlobals$zodSchema: z.ZodType<
-  DeleteStreamingProfileGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteStreamingProfileGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -19,9 +17,7 @@ export const DeleteStreamingProfileGlobals$zodSchema: z.ZodType<
 export type DeleteStreamingProfileRequest = { name: string };
 
 export const DeleteStreamingProfileRequest$zodSchema: z.ZodType<
-  DeleteStreamingProfileRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteStreamingProfileRequest
 > = z.object({
   name: z.string(),
 });
@@ -32,9 +28,7 @@ export const DeleteStreamingProfileRequest$zodSchema: z.ZodType<
 export type DeleteStreamingProfileResponseBody = { message: string };
 
 export const DeleteStreamingProfileResponseBody$zodSchema: z.ZodType<
-  DeleteStreamingProfileResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteStreamingProfileResponseBody
 > = z.object({
   message: z.string(),
 }).describe("Streaming profile deleted or reverted");
@@ -44,9 +38,7 @@ export type DeleteStreamingProfileResponse =
   | ApiError;
 
 export const DeleteStreamingProfileResponse$zodSchema: z.ZodType<
-  DeleteStreamingProfileResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteStreamingProfileResponse
 > = z.union([
   z.lazy(() => DeleteStreamingProfileResponseBody$zodSchema),
   ApiError$zodSchema,

@@ -27,7 +27,7 @@ Creates a new upload mapping for the specified folder`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await uploadMappingsCreateUploadMapping(
+    const [result] = await uploadMappingsCreateUploadMapping(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -40,8 +40,6 @@ Creates a new upload mapping for the specified folder`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

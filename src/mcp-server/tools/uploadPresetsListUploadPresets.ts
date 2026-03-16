@@ -32,7 +32,7 @@ export const tool$uploadPresetsListUploadPresets: ToolDefinition<typeof args> =
     },
     args,
     tool: async (client, args, ctx) => {
-      const [result, apiCall] = await uploadPresetsListUploadPresets(
+      const [result] = await uploadPresetsListUploadPresets(
         client,
         args.order_by,
         args.direction,
@@ -47,8 +47,6 @@ export const tool$uploadPresetsListUploadPresets: ToolDefinition<typeof args> =
         };
       }
 
-      const value = result.value;
-
-      return formatResult(value, apiCall);
+      return formatResult(result.value);
     },
   };

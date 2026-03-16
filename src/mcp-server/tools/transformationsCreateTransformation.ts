@@ -9,8 +9,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   transformation: z.string().describe(
-    "The valid transformation name to create.\n"
-      + "",
+    "The valid transformation name to create.\n",
   ),
   create_request: CreateRequest$zodSchema,
 };
@@ -34,7 +33,7 @@ Creates a new named transformation with the given name and transformation string
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await transformationsCreateTransformation(
+    const [result] = await transformationsCreateTransformation(
       client,
       args.transformation,
       args.create_request,
@@ -48,8 +47,6 @@ Creates a new named transformation with the given name and transformation string
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };
