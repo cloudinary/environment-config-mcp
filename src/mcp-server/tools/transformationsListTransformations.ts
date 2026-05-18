@@ -23,7 +23,7 @@ export const tool$transformationsListTransformations: ToolDefinition<
 > = {
   name: "list-transformations",
   description:
-    `Lists all transformation definitions in your account (including named transformations
+    `Lists all transformation definitions in your account, including named transformations
 
 Retrieves a list of all transformations, which can be filtered to show either only named or unnamed transformations.
 `,

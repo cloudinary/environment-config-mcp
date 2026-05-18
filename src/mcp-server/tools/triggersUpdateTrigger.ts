@@ -4,12 +4,14 @@
 
 import * as z from "zod";
 import { triggersUpdateTrigger } from "../../funcs/triggersUpdateTrigger.js";
-import { UpdateTriggerRequestBody$zodSchema } from "../../models/updatetriggerop.js";
+import { UpdateTriggerRequest$zodSchema } from "../../models/updatetriggerrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  id: z.string(),
-  RequestBody: UpdateTriggerRequestBody$zodSchema,
+  id: z.string().describe("The ID of the trigger."),
+  update_trigger_request: UpdateTriggerRequest$zodSchema.describe(
+    `The updated trigger configuration.`,
+  ),
 };
 
 export const tool$triggersUpdateTrigger: ToolDefinition<typeof args> = {
@@ -31,7 +33,7 @@ Updates a notification URL for a trigger.`,
     const [result] = await triggersUpdateTrigger(
       client,
       args.id,
-      args.RequestBody,
+      args.update_trigger_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

@@ -9,9 +9,11 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   transformation: z.string().describe(
-    "The valid transformation name to create.\n",
+    "The valid transformation name to create.",
   ),
-  create_request: CreateRequest$zodSchema,
+  create_request: CreateRequest$zodSchema.describe(
+    `The named transformation definition.`,
+  ),
 };
 
 export const tool$transformationsCreateTransformation: ToolDefinition<
@@ -19,7 +21,7 @@ export const tool$transformationsCreateTransformation: ToolDefinition<
 > = {
   name: "create-transformation",
   description:
-    `Creates a new named transformation (assigning a custom name to a set of transformation
+    `Creates a new named transformation by assigning a custom name to a set of transformation parameters
 
 Creates a new named transformation with the given name and transformation string.
 `,

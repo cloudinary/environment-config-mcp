@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Updates the definition of an existing named transformation
+ * Updates the definition of an existing transformation
  *
  * @remarks
- * Update an existing named or unnamed transformation.
+ * Updates a named or unnamed transformation.
  */
 export function transformationsUpdateTransformation(
   client$: CloudinaryEnvConfigCore,

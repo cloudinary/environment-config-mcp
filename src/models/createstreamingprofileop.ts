@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  StreamingProfile,
-  StreamingProfile$zodSchema,
-} from "./streamingprofile.js";
+  StreamingProfileDataResponse,
+  StreamingProfileDataResponse$zodSchema,
+} from "./streamingprofiledataresponse.js";
 
 export type CreateStreamingProfileGlobals = { cloud_name?: string | undefined };
 
@@ -18,24 +18,13 @@ export const CreateStreamingProfileGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * Streaming profile created
- */
-export type CreateStreamingProfileResponseBody = { data: StreamingProfile };
-
-export const CreateStreamingProfileResponseBody$zodSchema: z.ZodType<
-  CreateStreamingProfileResponseBody
-> = z.object({
-  data: StreamingProfile$zodSchema,
-}).describe("Streaming profile created");
-
 export type CreateStreamingProfileResponse =
-  | CreateStreamingProfileResponseBody
+  | StreamingProfileDataResponse
   | ApiError;
 
 export const CreateStreamingProfileResponse$zodSchema: z.ZodType<
   CreateStreamingProfileResponse
 > = z.union([
-  z.lazy(() => CreateStreamingProfileResponseBody$zodSchema),
+  StreamingProfileDataResponse$zodSchema,
   ApiError$zodSchema,
 ]);

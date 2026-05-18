@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { EventType, EventType$zodSchema } from "./eventtype.js";
 import { UriType, UriType$zodSchema } from "./uritype.js";
 
 export type TriggerInfo = {
@@ -10,14 +11,16 @@ export type TriggerInfo = {
   product_environment_id?: string | undefined;
   uri_type: UriType;
   uri: string;
-  event_type?: string | undefined;
+  event_type?: EventType | undefined;
   created_at?: string | undefined;
   updated_at?: string | undefined;
 };
 
 export const TriggerInfo$zodSchema: z.ZodType<TriggerInfo> = z.object({
   created_at: z.iso.datetime({ offset: true }).optional(),
-  event_type: z.string().optional(),
+  event_type: EventType$zodSchema.optional().describe(
+    "The type of notification event.",
+  ),
   id: z.string().optional(),
   product_environment_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),

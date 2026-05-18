@@ -12,7 +12,7 @@ import { pathToFunc } from "../lib/url.js";
 import {
   CreateTriggerRequest,
   CreateTriggerRequest$zodSchema,
-} from "../models/createtriggerop.js";
+} from "../models/createtriggerrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,

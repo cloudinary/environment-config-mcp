@@ -4,7 +4,14 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { UploadPreset, UploadPreset$zodSchema } from "./uploadpreset.js";
+import {
+  UploadPresetInput,
+  UploadPresetInput$zodSchema,
+} from "./uploadpresetinput.js";
+import {
+  UploadPresetMutationResponse,
+  UploadPresetMutationResponse$zodSchema,
+} from "./uploadpresetmutationresponse.js";
 
 export type UpdateUploadPresetGlobals = { cloud_name?: string | undefined };
 
@@ -17,38 +24,25 @@ export const UpdateUploadPresetGlobals$zodSchema: z.ZodType<
 
 export type UpdateUploadPresetRequest = {
   name: string;
-  upload_preset: UploadPreset;
+  upload_preset_input: UploadPresetInput;
 };
 
 export const UpdateUploadPresetRequest$zodSchema: z.ZodType<
   UpdateUploadPresetRequest
 > = z.object({
-  name: z.string(),
-  upload_preset: UploadPreset$zodSchema,
+  name: z.string().describe("The name of the upload preset."),
+  upload_preset_input: UploadPresetInput$zodSchema.describe(
+    "The updated upload preset configuration.",
+  ),
 });
 
-/**
- * upload preset updated
- */
-export type UpdateUploadPresetResponseBody = {
-  message: string;
-  external_id: string;
-};
-
-export const UpdateUploadPresetResponseBody$zodSchema: z.ZodType<
-  UpdateUploadPresetResponseBody
-> = z.object({
-  external_id: z.string(),
-  message: z.string(),
-}).describe("upload preset updated");
-
 export type UpdateUploadPresetResponse =
-  | UpdateUploadPresetResponseBody
+  | UploadPresetMutationResponse
   | ApiError;
 
 export const UpdateUploadPresetResponse$zodSchema: z.ZodType<
   UpdateUploadPresetResponse
 > = z.union([
-  z.lazy(() => UpdateUploadPresetResponseBody$zodSchema),
+  UploadPresetMutationResponse$zodSchema,
   ApiError$zodSchema,
 ]);

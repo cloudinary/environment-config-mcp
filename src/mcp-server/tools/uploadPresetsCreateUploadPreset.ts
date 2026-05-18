@@ -3,11 +3,13 @@
  */
 
 import { uploadPresetsCreateUploadPreset } from "../../funcs/uploadPresetsCreateUploadPreset.js";
-import { UploadPreset$zodSchema } from "../../models/uploadpreset.js";
+import { UploadPresetInput$zodSchema } from "../../models/uploadpresetinput.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UploadPreset$zodSchema,
+  request: UploadPresetInput$zodSchema.describe(
+    `The upload preset configuration.`,
+  ),
 };
 
 export const tool$uploadPresetsCreateUploadPreset: ToolDefinition<typeof args> =

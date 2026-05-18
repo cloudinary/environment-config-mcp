@@ -19,21 +19,21 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UpdateUploadMappingRequest,
-  UpdateUploadMappingRequest$zodSchema,
-} from "../models/updateuploadmappingop.js";
+  UploadMappingInput,
+  UploadMappingInput$zodSchema,
+} from "../models/uploadmappinginput.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Updates an existing upload mapping by changing its remote URL template for a given
+ * Updates an existing upload mapping by changing its remote URL template for a given folder
  *
  * @remarks
  * Updates the URL template for an existing folder mapping
  */
 export function uploadMappingsUpdateUploadMapping(
   client$: CloudinaryEnvConfigCore,
-  request: UpdateUploadMappingRequest,
+  request: UploadMappingInput,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function uploadMappingsUpdateUploadMapping(
 
 async function $do(
   client$: CloudinaryEnvConfigCore,
-  request: UpdateUploadMappingRequest,
+  request: UploadMappingInput,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => UpdateUploadMappingRequest$zodSchema.parse(value$),
+    (value$) => UploadMappingInput$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

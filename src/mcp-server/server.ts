@@ -12,7 +12,11 @@ import {
   createRegisterResourceTemplate,
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
-import { createRegisterTool, registerDynamicTools } from "./tools.js";
+import {
+  createRegisterTool,
+  MCPToolAnnotationFilter,
+  registerDynamicTools,
+} from "./tools.js";
 import { tool$streamingProfilesCreateStreamingProfile } from "./tools/streamingProfilesCreateStreamingProfile.js";
 import { tool$streamingProfilesDeleteStreamingProfile } from "./tools/streamingProfilesDeleteStreamingProfile.js";
 import { tool$streamingProfilesGetStreamingProfile } from "./tools/streamingProfilesGetStreamingProfile.js";
@@ -43,6 +47,7 @@ export function createMCPServer(deps: {
   allowedTools?: string[] | undefined;
   dynamic?: boolean | undefined;
   scopes?: MCPScope[] | undefined;
+  annotationFilter?: MCPToolAnnotationFilter | undefined;
   getSDK?: () => CloudinaryEnvConfigCore;
   serverURL?: string | undefined;
   security?: SDKOptions["security"] | undefined;
@@ -53,7 +58,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryEnvConfig",
-    version: "0.6.0",
+    version: "0.7.0",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -83,6 +88,7 @@ export function createMCPServer(deps: {
     scopes,
     allowedTools,
     deps.dynamic,
+    deps.annotationFilter,
   );
   const resource = createRegisterResource(
     deps.logger,

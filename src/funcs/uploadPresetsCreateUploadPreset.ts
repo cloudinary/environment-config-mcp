@@ -19,9 +19,9 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UploadPreset,
-  UploadPreset$zodSchema,
-} from "../models/uploadpreset.js";
+  UploadPresetInput,
+  UploadPresetInput$zodSchema,
+} from "../models/uploadpresetinput.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  */
 export function uploadPresetsCreateUploadPreset(
   client$: CloudinaryEnvConfigCore,
-  request: UploadPreset,
+  request: UploadPresetInput,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -53,7 +53,7 @@ export function uploadPresetsCreateUploadPreset(
 
 async function $do(
   client$: CloudinaryEnvConfigCore,
-  request: UploadPreset,
+  request: UploadPresetInput,
   options?: RequestOptions,
 ): Promise<
   [
@@ -72,7 +72,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => UploadPreset$zodSchema.parse(value$),
+    (value$) => UploadPresetInput$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

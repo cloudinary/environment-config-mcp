@@ -7,7 +7,7 @@ import { uploadPresetsDeleteUploadPreset } from "../../funcs/uploadPresetsDelete
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  name: z.string(),
+  name: z.string().describe("The name of the upload preset."),
 };
 
 export const tool$uploadPresetsDeleteUploadPreset: ToolDefinition<typeof args> =

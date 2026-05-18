@@ -26,7 +26,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Lists all transformation definitions in your account (including named transformations
+ * Lists all transformation definitions in your account, including named transformations
  *
  * @remarks
  * Retrieves a list of all transformations, which can be filtered to show either only named or unnamed transformations.

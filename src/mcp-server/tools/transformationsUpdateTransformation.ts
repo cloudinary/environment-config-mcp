@@ -11,16 +11,18 @@ const args = {
   transformation: z.string().describe(
     "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
-  update_request: UpdateRequest$zodSchema,
+  update_request: UpdateRequest$zodSchema.describe(
+    `The updated transformation definition.`,
+  ),
 };
 
 export const tool$transformationsUpdateTransformation: ToolDefinition<
   typeof args
 > = {
   name: "update-transformation",
-  description: `Updates the definition of an existing named transformation
+  description: `Updates the definition of an existing transformation
 
-Update an existing named or unnamed transformation.
+Updates a named or unnamed transformation.
 `,
   scopes: ["admin"],
   annotations: {

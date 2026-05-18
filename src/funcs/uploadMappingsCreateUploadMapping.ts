@@ -9,10 +9,6 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import {
-  CreateUploadMappingRequest,
-  CreateUploadMappingRequest$zodSchema,
-} from "../models/createuploadmappingop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -22,6 +18,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  UploadMappingInput,
+  UploadMappingInput$zodSchema,
+} from "../models/uploadmappinginput.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function uploadMappingsCreateUploadMapping(
   client$: CloudinaryEnvConfigCore,
-  request: CreateUploadMappingRequest,
+  request: UploadMappingInput,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function uploadMappingsCreateUploadMapping(
 
 async function $do(
   client$: CloudinaryEnvConfigCore,
-  request: CreateUploadMappingRequest,
+  request: UploadMappingInput,
   options?: RequestOptions,
 ): Promise<
   [
@@ -75,7 +75,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => CreateUploadMappingRequest$zodSchema.parse(value$),
+    (value$) => UploadMappingInput$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

@@ -9,6 +9,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -19,7 +20,6 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  Direction,
   ListUploadPresetsRequest,
   ListUploadPresetsRequest$zodSchema,
   OrderBy,
@@ -33,7 +33,8 @@ import { Result } from "../types/fp.js";
 export function uploadPresetsListUploadPresets(
   client$: CloudinaryEnvConfigCore,
   order_by?: OrderBy | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
+  max_results?: number | undefined,
   next_cursor?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -52,6 +53,7 @@ export function uploadPresetsListUploadPresets(
     client$,
     order_by,
     direction,
+    max_results,
     next_cursor,
     options,
   ));
@@ -60,7 +62,8 @@ export function uploadPresetsListUploadPresets(
 async function $do(
   client$: CloudinaryEnvConfigCore,
   order_by?: OrderBy | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
+  max_results?: number | undefined,
   next_cursor?: string | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -81,6 +84,7 @@ async function $do(
   const input$: ListUploadPresetsRequest | undefined = {
     order_by: order_by,
     direction: direction,
+    max_results: max_results,
     next_cursor: next_cursor,
   };
 
@@ -106,6 +110,7 @@ async function $do(
   );
   const query$ = encodeFormQuery({
     "direction": payload$?.direction,
+    "max_results": payload$?.max_results,
     "next_cursor": payload$?.next_cursor,
     "order_by": payload$?.order_by,
   });

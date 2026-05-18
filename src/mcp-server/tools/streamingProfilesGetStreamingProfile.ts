@@ -7,7 +7,7 @@ import { streamingProfilesGetStreamingProfile } from "../../funcs/streamingProfi
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  name: z.string(),
+  name: z.string().describe("The name of the streaming profile."),
 };
 
 export const tool$streamingProfilesGetStreamingProfile: ToolDefinition<

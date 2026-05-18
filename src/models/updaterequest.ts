@@ -10,6 +10,10 @@ export type UpdateRequest = {
 };
 
 export const UpdateRequest$zodSchema: z.ZodType<UpdateRequest> = z.object({
-  allowed_for_strict: z.boolean().optional(),
-  unsafe_update: z.string().optional(),
+  allowed_for_strict: z.boolean().optional().describe(
+    "Whether to allow this named transformation when strict transformations are enabled. Strict transformations prevent transformations from being dynamically applied to media assets.\n",
+  ),
+  unsafe_update: z.string().optional().describe(
+    "Required when modifying the transformation parameters of an existing named transformation. The new transformation definition for the named transformation.\nBecause the changed definition can be unsafe for (significantly change) assets in production, the change is applied only to newly generated derived assets that reference this named transformation.\n\nTo apply the change to existing derived assets using this named transformation, invalidate them so that they'll be regenerated with the new definition when next requested.\n",
+  ),
 });

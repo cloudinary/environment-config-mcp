@@ -5,6 +5,10 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { CreateRequest, CreateRequest$zodSchema } from "./createrequest.js";
+import {
+  MessageResponse,
+  MessageResponse$zodSchema,
+} from "./messageresponse.js";
 
 export type CreateTransformationGlobals = { cloud_name?: string | undefined };
 
@@ -23,30 +27,19 @@ export type CreateTransformationRequest = {
 export const CreateTransformationRequest$zodSchema: z.ZodType<
   CreateTransformationRequest
 > = z.object({
-  create_request: CreateRequest$zodSchema,
+  create_request: CreateRequest$zodSchema.describe(
+    "The named transformation definition.",
+  ),
   transformation: z.string().describe(
-    "The valid transformation name to create.\n",
+    "The valid transformation name to create.",
   ),
 });
 
-/**
- * Transformation created
- */
-export type CreateTransformationResponseBody = { message?: string | undefined };
-
-export const CreateTransformationResponseBody$zodSchema: z.ZodType<
-  CreateTransformationResponseBody
-> = z.object({
-  message: z.string().optional(),
-}).describe("Transformation created");
-
-export type CreateTransformationResponse =
-  | ApiError
-  | CreateTransformationResponseBody;
+export type CreateTransformationResponse = MessageResponse | ApiError;
 
 export const CreateTransformationResponse$zodSchema: z.ZodType<
   CreateTransformationResponse
 > = z.union([
+  MessageResponse$zodSchema,
   ApiError$zodSchema,
-  z.lazy(() => CreateTransformationResponseBody$zodSchema),
 ]);
