@@ -4,6 +4,8 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
+The Cloudinary Environment Config MCP Server connects AI assistants (including Claude Desktop, Cursor, Gemini, Windsurf, and VS Code) directly to your Cloudinary account. Use natural language to manage named transformations, create and update upload presets, configure adaptive streaming profiles for video delivery, set up event-driven webhooks (triggers), and manage upload folder mappings. Designed for developers who want to control Cloudinary environment configuration without leaving their AI-powered coding environment.
+
 
 <!-- End Summary [summary] -->
 

@@ -2,8 +2,8 @@
   "name": "@cloudinary/environment-config-mcp",
   "version": "0.6.0",
   "author": "Cloudinary",
-  "description": "Cloudinary Environment Config MCP Server — manage named transformations, upload presets, streaming profiles, webhooks (triggers), and upload mappings through AI assistants (Claude Desktop, Cursor, Gemini, Windsurf, VS Code)",
-"keywords": ["mcp", "mcp-server", "cloudinary", "model-context-protocol", "media-management", "ai-tools", "named-transformations", "upload-presets", "streaming-profiles"],
+  "description": "Cloudinary Environment Config MCP Server - manage named transformations, upload presets, streaming profiles, webhooks (triggers), and upload mappings through AI assistants (Claude Desktop, Cursor, Gemini, Windsurf, VS Code)",
+  "keywords": ["mcp", "mcp-server", "cloudinary", "model-context-protocol", "media-management", "ai-tools", "named-transformations", "upload-presets", "streaming-profiles"],
   "type": "module",
   "sideEffects": false,
   "repository": {
