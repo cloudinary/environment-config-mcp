@@ -1,18 +1,18 @@
-speakeasyVersion: 1.755.1
+speakeasyVersion: 1.790.3
 sources:
     CloudinaryEnvConfig-MCP-OAS:
         sourceNamespace: cloudinary-env-config-mcp-oas
-        sourceRevisionDigest: sha256:db829e6bf09523789e58c6b1d38767772afc1a0e3612e7d1e30a86f3983ee4b4
-        sourceBlobDigest: sha256:2b79ac215d5147f5d4c321e98e6f8f4f41527d81bfe5aa9c2af0d85e30efec14
+        sourceRevisionDigest: sha256:b6281b27d07c8b35abcd2a20530cb053b69cbe1622af4567dd8f78c0df32477d
+        sourceBlobDigest: sha256:fed74de23a81af433e30444f5a07d7c677dce368f68d0af3c750b2b924ffc02e
         tags:
             - latest
-            - 0.4.0
+            - 0.5.5
 targets:
     cloudinary-env-config-mcp:
         source: CloudinaryEnvConfig-MCP-OAS
         sourceNamespace: cloudinary-env-config-mcp-oas
-        sourceRevisionDigest: sha256:db829e6bf09523789e58c6b1d38767772afc1a0e3612e7d1e30a86f3983ee4b4
-        sourceBlobDigest: sha256:2b79ac215d5147f5d4c321e98e6f8f4f41527d81bfe5aa9c2af0d85e30efec14
+        sourceRevisionDigest: sha256:b6281b27d07c8b35abcd2a20530cb053b69cbe1622af4567dd8f78c0df32477d
+        sourceBlobDigest: sha256:fed74de23a81af433e30444f5a07d7c677dce368f68d0af3c750b2b924ffc02e
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -26,6 +26,7 @@ workflow:
                 - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
                 - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
+                - location: ../api-schemas/environment-config/overlays/summary-overlay-mcp.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-env-config-mcp-oas
     targets:
