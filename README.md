@@ -332,8 +332,8 @@ To enable dynamic mode, pass the `--mode dynamic` flag when starting your server
 In dynamic mode, the server registers only the following meta-tools instead of every individual tool:
 
 - **`list_tools`**: Lists all available tools with their names and descriptions.
-- **`describe_tool`**: Returns the input schema for one or more tools by name.
-- **`execute_tool`**: Executes a tool by name with the provided input parameters.
+- **`describe_tool_input`**: Returns the input schema for one or more tools by name.
+- **`execute_tool`**: Executes a tool by name with its arguments.
 - **`list_scopes`**: Lists the scopes available on the server.
 
 This approach significantly reduces the number of tokens sent to the LLM on each request, which is especially useful for servers with a large number of tools.
