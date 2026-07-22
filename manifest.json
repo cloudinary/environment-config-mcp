@@ -3,7 +3,7 @@
     "name": "Cloudinary",
     "url": "https://cloudinary.com"
   },
-  "description": "Cloudinary Environment Config MCP Server - manage named transformations, upload presets, streaming profiles, webhooks, and upload mappings via AI",
+  "description": "Cloudinary Environment Configuration MCP Server - manage named transformations, upload presets, streaming profiles, webhooks, and upload mappings via AI",
   "display_name": "Cloudinary Environment Config",
   "documentation": "https://cloudinary.com/documentation/cloudinary_llm_mcp",
   "homepage": "https://github.com/cloudinary/environment-config-mcp",
@@ -24,7 +24,7 @@
     "ai-tools"
   ],
   "license": "MIT",
-  "long_description": "The Cloudinary Environment Config MCP Server connects AI assistants (including Claude Desktop, Cursor, Gemini, Windsurf, and VS Code) directly to your Cloudinary account. Use natural language to manage named transformations, create and update upload presets, configure adaptive streaming profiles for video delivery, set up event-driven webhooks (triggers), and manage upload folder mappings. Designed for developers who want to control Cloudinary environment configuration without leaving their AI-powered coding environment.",
+  "long_description": "The Cloudinary Environment Configuration MCP Server connects AI assistants (including Claude Desktop, Cursor, Gemini, Windsurf, and VS Code) directly to your Cloudinary account. Use natural language to manage named transformations, create and update upload presets, configure adaptive streaming profiles for video delivery, set up event-driven webhooks (triggers), and manage upload folder mappings. Designed for developers who want to control Cloudinary environment configuration without leaving their AI-powered coding environment.",
   "manifest_version": "0.3",
   "name": "@cloudinary/environment-config-mcp",
   "privacy_policies": [
