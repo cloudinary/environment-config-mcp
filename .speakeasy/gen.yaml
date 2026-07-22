@@ -25,7 +25,8 @@ generation:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
   versioningStrategy: automatic
-  persistentEdits: {}
+  persistentEdits:
+    enabled: "true"
   tests:
     generateTests: false
     generateNewTests: true
@@ -56,6 +57,7 @@ mcp-typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: CLOUDINARY
+  fixEnumNameSanitization: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
