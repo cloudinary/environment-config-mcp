@@ -22,50 +22,6 @@ import { MCPServerFlags } from "./flags.js";
 import { MCPScope, mcpScopes } from "./scopes.js";
 import { isAsyncIterable, isBinaryData, valueToBase64 } from "./shared.js";
 
-export type MCPToolAnnotationFilter = {
-  readOnlyHint?: boolean;
-  destructiveHint?: boolean;
-  idempotentHint?: boolean;
-  openWorldHint?: boolean;
-};
-
-const VALID_ANNOTATIONS = [
-  "readOnly",
-  "destructive",
-  "idempotent",
-  "openWorld",
-] as const;
-type AnnotationName = typeof VALID_ANNOTATIONS[number];
-
-const annotationToKey: Record<AnnotationName, keyof MCPToolAnnotationFilter> = {
-  readOnly: "readOnlyHint",
-  destructive: "destructiveHint",
-  idempotent: "idempotentHint",
-  openWorld: "openWorldHint",
-};
-
-export function buildAnnotationFilter(
-  annotations: string[] | undefined,
-): MCPToolAnnotationFilter {
-  const filter: MCPToolAnnotationFilter = {};
-  if (!annotations || annotations.length === 0) {
-    return filter;
-  }
-  for (const a of annotations) {
-    if (!VALID_ANNOTATIONS.includes(a as AnnotationName)) {
-      throw new Error(
-        `Invalid annotation filter: "${a}". Valid values are: ${
-          VALID_ANNOTATIONS.join(", ")
-        }`,
-      );
-    }
-  }
-  for (const name of VALID_ANNOTATIONS) {
-    filter[annotationToKey[name]] = annotations.includes(name);
-  }
-  return filter;
-}
-
 export type ToolDefinition<
   Args extends undefined | ZodRawShapeCompat = undefined,
 > = Args extends ZodRawShapeCompat ? {
@@ -168,7 +124,6 @@ export function createRegisterTool(
   allowedScopes: Set<MCPScope>,
   allowedTools?: Set<string>,
   dynamic?: boolean,
-  annotationFilter?: MCPToolAnnotationFilter,
 ): [
   <A extends ZodRawShapeCompat | undefined>(tool: ToolDefinition<A>) => void,
   Array<{ name: string; description: string }>,
@@ -196,34 +151,6 @@ export function createRegisterTool(
       && !scopes.every((s: MCPScope) => allowedScopes.has(s))
     ) {
       return;
-    }
-
-    if (annotationFilter) {
-      const a = tool.annotations;
-      if (
-        annotationFilter.readOnlyHint !== undefined
-        && a.readOnlyHint !== annotationFilter.readOnlyHint
-      ) {
-        return;
-      }
-      if (
-        annotationFilter.destructiveHint !== undefined
-        && a.destructiveHint !== annotationFilter.destructiveHint
-      ) {
-        return;
-      }
-      if (
-        annotationFilter.idempotentHint !== undefined
-        && a.idempotentHint !== annotationFilter.idempotentHint
-      ) {
-        return;
-      }
-      if (
-        annotationFilter.openWorldHint !== undefined
-        && a.openWorldHint !== annotationFilter.openWorldHint
-      ) {
-        return;
-      }
     }
 
     toolMap.set(
@@ -377,8 +304,6 @@ export function registerDynamicTools(
       if (def.args) {
         const jsonSchema = z.toJSONSchema(z.object(def.args), {
           target: "draft-2020-12",
-          io: "input",
-          unrepresentable: "any",
         });
         schemaText += JSON.stringify(jsonSchema, null, 2);
       } else {
@@ -394,16 +319,16 @@ export function registerDynamicTools(
 
     return { content: [{ type: "text", text: parts.join("\n\n") }] };
   });
-  logger.debug("Registered dynamic meta-tool", { name: "describe_tool_input" });
+  logger.debug("Registered dynamic meta-tool", { name: "describe_tool" });
 
   // 3. execute_tool
   server.registerTool("execute_tool", {
     description:
-      "Execute a tool by name with its arguments. If executing a given tool for the first time, it is recommended to call describe_tool_input first to understand the expected `arguments` shape.",
+      "Execute a tool by name with the provided input parameters. If executing a given tool for the first time, it is recommended to call describe_tool_input first to understand the expected input schema.",
     inputSchema: {
-      name: z.string().describe("The name of the tool to execute"),
-      arguments: z.looseObject({}).optional().describe(
-        "Arguments for the target tool as a JSON object, matching the schema returned by describe_tool_input.",
+      tool_name: z.string().describe("The name of the tool to execute"),
+      input: z.record(z.string(), z.unknown()).optional().describe(
+        "Input parameters for the tool as a JSON object",
       ),
     },
     annotations: {
@@ -414,17 +339,17 @@ export function registerDynamicTools(
       openWorldHint: true,
     },
   }, async (args, ctx) => {
-    const def = toolMap.get(args.name);
+    const def = toolMap.get(args.tool_name);
     if (!def) {
       return {
-        content: [{ type: "text", text: `Unknown tool: ${args.name}` }],
+        content: [{ type: "text", text: `Unknown tool: ${args.tool_name}` }],
         isError: true,
       };
     }
 
     let validatedInput: Record<string, unknown> = {};
     if (def.args) {
-      const vres = z.object(def.args).safeParse(args.arguments ?? {});
+      const vres = z.object(def.args).safeParse(args.input ?? {});
       if (vres.success) {
         validatedInput = vres.data;
       } else {
@@ -434,7 +359,7 @@ export function registerDynamicTools(
           content: [{
             type: "text",
             text:
-              `Invalid input for tool ${args.name}:\n<issues>\n${issues}\n</issues>`,
+              `Invalid input for tool ${args.tool_name}:\n<issues>\n${issues}\n</issues>`,
           }],
           isError: true,
         };
@@ -452,7 +377,7 @@ export function registerDynamicTools(
       return {
         content: [{
           type: "text",
-          text: `Error executing tool ${args.name}: ${message}`,
+          text: `Error executing tool ${args.tool_name}: ${message}`,
         }],
         isError: true,
       };

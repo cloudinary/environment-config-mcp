@@ -18,11 +18,7 @@ export type UploadMappingListResponse = {
 export const UploadMappingListResponse$zodSchema: z.ZodType<
   UploadMappingListResponse
 > = z.object({
-  mappings: z.array(UploadMapping$zodSchema).describe(
-    "Array of upload mapping objects.",
-  ),
-  next_cursor: z.string().optional().describe(
-    "Cursor for getting the next page of results.",
-  ),
-  total_entries: z.int().describe("Total number of mappings."),
+  mappings: z.array(UploadMapping$zodSchema),
+  next_cursor: z.string().optional(),
+  total_entries: z.int(),
 }).describe("List response for upload mappings.");

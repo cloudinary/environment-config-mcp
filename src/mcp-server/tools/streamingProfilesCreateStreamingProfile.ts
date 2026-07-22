@@ -8,9 +8,7 @@ import { StreamingProfileCreate$zodSchema } from "../../models/streamingprofilec
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: StreamingProfileCreate$zodSchema.describe(
-    `The streaming profile configuration.`,
-  ),
+  request: StreamingProfileCreate$zodSchema,
 };
 
 export const tool$streamingProfilesCreateStreamingProfile: ToolDefinition<

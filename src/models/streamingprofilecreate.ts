@@ -14,11 +14,7 @@ export type StreamingProfileCreate = {
 export const StreamingProfileCreate$zodSchema: z.ZodType<
   StreamingProfileCreate
 > = z.object({
-  display_name: z.string().nullable().optional().describe(
-    "The display name of the streaming profile",
-  ),
-  name: z.string().describe("The name of the streaming profile"),
-  representations: z.string().describe(
-    "A JSON string containing the list of representations with transformation parameters as strings",
-  ),
+  display_name: z.string().nullable().optional(),
+  name: z.string(),
+  representations: z.string(),
 });

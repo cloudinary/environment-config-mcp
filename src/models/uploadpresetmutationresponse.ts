@@ -13,10 +13,6 @@ export type UploadPresetMutationResponse = {
 export const UploadPresetMutationResponse$zodSchema: z.ZodType<
   UploadPresetMutationResponse
 > = z.object({
-  external_id: z.string().describe(
-    "The unique identifier for the upload preset.",
-  ),
-  message: z.string().describe(
-    "The result message (e.g., \"updated\" or \"deleted\").",
-  ),
+  external_id: z.string(),
+  message: z.string(),
 });

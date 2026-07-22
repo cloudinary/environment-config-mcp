@@ -11,8 +11,6 @@ export type CreateRequest = {
 };
 
 export const CreateRequest$zodSchema: z.ZodType<CreateRequest> = z.object({
-  allowed_for_strict: z.boolean().optional().describe(
-    "Whether to allow this named transformation when strict transformations are enabled. Strict transformations prevent transformations from being dynamically applied to media assets.\n",
-  ),
-  transformation: z.string().describe("A valid transformation string."),
+  allowed_for_strict: z.boolean().optional(),
+  transformation: z.string(),
 });

@@ -14,9 +14,7 @@ export type UploadPresetCreateResponse = {
 export const UploadPresetCreateResponse$zodSchema: z.ZodType<
   UploadPresetCreateResponse
 > = z.object({
-  external_id: z.string().describe(
-    "The unique identifier for the upload preset.",
-  ),
-  message: z.string().describe("The result message."),
-  name: z.string().describe("The name of the created upload preset."),
+  external_id: z.string(),
+  message: z.string(),
+  name: z.string(),
 });

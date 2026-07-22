@@ -13,6 +13,6 @@ export type UploadMappingMutationResponse = {
 export const UploadMappingMutationResponse$zodSchema: z.ZodType<
   UploadMappingMutationResponse
 > = z.object({
-  external_id: z.string().describe("Unique identifier of the mapping."),
+  external_id: z.string(),
   message: z.string(),
 });

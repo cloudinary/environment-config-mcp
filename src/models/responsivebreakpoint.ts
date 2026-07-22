@@ -16,22 +16,10 @@ export type ResponsiveBreakpoint = {
 
 export const ResponsiveBreakpoint$zodSchema: z.ZodType<ResponsiveBreakpoint> = z
   .object({
-    bytes_step: z.int().optional().describe(
-      "The minimum byte size difference between consecutive breakpoint images.",
-    ),
-    create_derived: z.boolean().optional().describe(
-      "Whether to generate and store the derived images. Default is true.",
-    ),
-    max_images: z.int().optional().describe(
-      "The maximum number of breakpoint images to generate.",
-    ),
-    max_width: z.int().optional().describe(
-      "The maximum width for responsive breakpoint images.",
-    ),
-    min_width: z.int().optional().describe(
-      "The minimum width for responsive breakpoint images.",
-    ),
-    transformation: z.string().optional().describe(
-      "A transformation string to apply before generating breakpoints.",
-    ),
+    bytes_step: z.int().optional(),
+    create_derived: z.boolean().optional(),
+    max_images: z.int().optional(),
+    max_width: z.int().optional(),
+    min_width: z.int().optional(),
+    transformation: z.string().optional(),
   });

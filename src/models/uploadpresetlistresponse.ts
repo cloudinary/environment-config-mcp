@@ -17,8 +17,6 @@ export type UploadPresetListResponse = {
 export const UploadPresetListResponse$zodSchema: z.ZodType<
   UploadPresetListResponse
 > = z.object({
-  next_cursor: z.string().nullable().optional().describe(
-    "Cursor for the next page of results.",
-  ),
+  next_cursor: z.string().nullable().optional(),
   presets: z.array(UploadPresetSummary$zodSchema),
 });

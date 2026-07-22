@@ -19,9 +19,7 @@ export type TriggerInfo = {
 
 export const TriggerInfo$zodSchema: z.ZodType<TriggerInfo> = z.object({
   created_at: z.iso.datetime({ offset: true }).optional(),
-  event_type: EventType$zodSchema.optional().describe(
-    "The type of notification event.",
-  ),
+  event_type: EventType$zodSchema.optional(),
   id: z.string().optional(),
   product_environment_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),

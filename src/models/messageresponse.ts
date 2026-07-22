@@ -8,5 +8,5 @@ import * as z from "zod";
 export type MessageResponse = { message: string };
 
 export const MessageResponse$zodSchema: z.ZodType<MessageResponse> = z.object({
-  message: z.string().describe("A human-readable status message."),
+  message: z.string(),
 });

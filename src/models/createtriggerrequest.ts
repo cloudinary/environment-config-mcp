@@ -10,8 +10,6 @@ export type CreateTriggerRequest = { uri: string; event_type: EventType };
 
 export const CreateTriggerRequest$zodSchema: z.ZodType<CreateTriggerRequest> = z
   .object({
-    event_type: EventType$zodSchema.describe("The type of notification event."),
-    uri: z.string().describe(
-      "The URL that will receive the notification response.",
-    ),
+    event_type: EventType$zodSchema,
+    uri: z.string(),
   });

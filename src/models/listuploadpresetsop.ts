@@ -12,6 +12,15 @@ import {
   UploadPresetListResponse$zodSchema,
 } from "./uploadpresetlistresponse.js";
 
+export type ListUploadPresetsGlobals = { cloud_name?: string | undefined };
+
+export const ListUploadPresetsGlobals$zodSchema: z.ZodType<
+  ListUploadPresetsGlobals
+> = z.object({
+  cloud_name: z.string().describe("The cloud name of your product environment.")
+    .optional(),
+});
+
 /**
  * The field to sort presets by.
  */
@@ -31,15 +40,6 @@ export const OrderBy$zodSchema = z.enum([
   "created_at",
 ]).describe("The field to sort presets by.");
 
-export type ListUploadPresetsGlobals = { cloud_name?: string | undefined };
-
-export const ListUploadPresetsGlobals$zodSchema: z.ZodType<
-  ListUploadPresetsGlobals
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
-
 export type ListUploadPresetsRequest = {
   order_by?: OrderBy | undefined;
   direction?: DirectionEnum | undefined;
@@ -50,18 +50,14 @@ export type ListUploadPresetsRequest = {
 export const ListUploadPresetsRequest$zodSchema: z.ZodType<
   ListUploadPresetsRequest
 > = z.object({
-  direction: DirectionEnum$zodSchema.optional().describe(
-    "The sort direction for the results. Default is \"desc\".",
-  ),
+  direction: DirectionEnum$zodSchema.optional(),
   max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),
   next_cursor: z.string().describe(
     "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
   ).optional(),
-  order_by: OrderBy$zodSchema.optional().describe(
-    "The field to sort presets by.",
-  ),
+  order_by: OrderBy$zodSchema.optional(),
 });
 
 export type ListUploadPresetsResponse = UploadPresetListResponse | ApiError;

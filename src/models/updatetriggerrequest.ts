@@ -9,7 +9,5 @@ export type UpdateTriggerRequest = { new_uri: string };
 
 export const UpdateTriggerRequest$zodSchema: z.ZodType<UpdateTriggerRequest> = z
   .object({
-    new_uri: z.string().describe(
-      "The updated URL that will receive the notification response.",
-    ),
+    new_uri: z.string(),
   });

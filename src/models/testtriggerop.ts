@@ -32,9 +32,7 @@ export const TestTriggerRequestRequest$zodSchema: z.ZodType<
   TestTriggerRequestRequest
 > = z.object({
   id: z.string().describe("The ID of the trigger to test."),
-  test_trigger_request: TestTriggerRequest$zodSchema.optional().describe(
-    "The test data for the trigger.",
-  ),
+  test_trigger_request: TestTriggerRequest$zodSchema.optional(),
 });
 
 export type TestTriggerResponseResponse = TestTriggerResponse | ApiError;

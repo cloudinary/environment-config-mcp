@@ -19,14 +19,8 @@ export function landingPage(req: Request): Response {
 
 // express wrapper
 export function landingPageExpress(req: ExpressRequest, res: ExpressResponse) {
-  const proto = req.get("x-forwarded-proto")?.split(",")[0]?.trim()
-    || req.protocol;
-  const host = req.get("host");
-  if (!host) {
-    res.status(400).send("Missing Host header");
-    return;
-  }
-  res.type("html").send(landingPageHTML(`${proto}://${host}`));
+  const origin = new URL(req.host).href;
+  res.type("html").send(landingPageHTML(origin));
 }
 
 export function landingPageHTML(origin: string): string {

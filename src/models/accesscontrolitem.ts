@@ -59,24 +59,16 @@ export type AccessControlItem = {
 
 export const AccessControlItem$zodSchema: z.ZodType<AccessControlItem> = z
   .object({
-    access_type: AccessType$zodSchema.describe(
-      "The type of access control to apply to the asset.",
-    ),
+    access_type: AccessType$zodSchema,
     end: z.union([
       z.string(),
       z.int(),
-    ]).optional().describe(
-      "The end date and time when anonymous access expires. Accepts ISO 8601 string or Unix timestamp.",
-    ),
-    key: z.string().optional().describe(
-      "The authentication key identifier for token-based access. Default key is used if not specified or if set to 'default'.",
-    ),
+    ]).optional(),
+    key: z.string().optional(),
     start: z.union([
       z.string(),
       z.int(),
-    ]).optional().describe(
-      "The start date and time when anonymous access becomes available. Accepts ISO 8601 string or Unix timestamp.",
-    ),
+    ]).optional(),
   }).describe(
     "Access control rule that defines when and how the asset can be accessed.",
   );

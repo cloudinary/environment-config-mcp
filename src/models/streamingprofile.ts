@@ -10,9 +10,7 @@ export type Representation = {
 };
 
 export const Representation$zodSchema: z.ZodType<Representation> = z.object({
-  transformation: z.array(z.record(z.string(), z.any())).optional().describe(
-    "The transformation parameters for this representation",
-  ),
+  transformation: z.array(z.record(z.string(), z.any())).optional(),
 });
 
 export type StreamingProfile = {
@@ -25,17 +23,10 @@ export type StreamingProfile = {
 
 export const StreamingProfile$zodSchema: z.ZodType<StreamingProfile> = z.object(
   {
-    display_name: z.string().nullable().optional().describe(
-      "The display name of the streaming profile",
-    ),
-    external_id: z.string().describe(
-      "The unique identifier of the streaming profile",
-    ),
-    name: z.string().describe("The name of the streaming profile"),
-    predefined: z.boolean().describe(
-      "Whether this is a predefined streaming profile",
-    ),
-    representations: z.array(z.lazy(() => Representation$zodSchema)).optional()
-      .describe("The list of representations in the streaming profile"),
+    display_name: z.string().nullable().optional(),
+    external_id: z.string(),
+    name: z.string(),
+    predefined: z.boolean(),
+    representations: z.array(z.lazy(() => Representation$zodSchema)).optional(),
   },
 );
