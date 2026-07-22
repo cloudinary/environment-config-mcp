@@ -4,12 +4,14 @@
 
 import * as z from "zod";
 import { triggersTestTrigger } from "../../funcs/triggersTestTrigger.js";
-import { TestTriggerRequestBody$zodSchema } from "../../models/testtriggerop.js";
+import { TestTriggerRequest$zodSchema } from "../../models/testtriggerrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  id: z.string(),
-  RequestBody: TestTriggerRequestBody$zodSchema.optional(),
+  id: z.string().describe("The ID of the trigger to test."),
+  test_trigger_request: TestTriggerRequest$zodSchema.optional().describe(
+    `The test data for the trigger.`,
+  ),
 };
 
 export const tool$triggersTestTrigger: ToolDefinition<typeof args> = {
@@ -23,7 +25,7 @@ Use this endpoint to verify that a trigger's filter will match expected events.
   annotations: {
     "title": "Test Trigger Filter",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": true,
   },
@@ -32,7 +34,7 @@ Use this endpoint to verify that a trigger's filter will match expected events.
     const [result] = await triggersTestTrigger(
       client,
       args.id,
-      args.RequestBody,
+      args.test_trigger_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

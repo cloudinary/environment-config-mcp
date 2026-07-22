@@ -7,7 +7,7 @@ import { streamingProfilesDeleteStreamingProfile } from "../../funcs/streamingPr
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  name: z.string(),
+  name: z.string().describe("The name of the streaming profile."),
 };
 
 export const tool$streamingProfilesDeleteStreamingProfile: ToolDefinition<

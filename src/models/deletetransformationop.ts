@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  MessageResponse,
+  MessageResponse$zodSchema,
+} from "./messageresponse.js";
 
 export type DeleteTransformationGlobals = { cloud_name?: string | undefined };
 
@@ -30,24 +34,11 @@ export const DeleteTransformationRequest$zodSchema: z.ZodType<
   ),
 });
 
-/**
- * Transformation deleted
- */
-export type DeleteTransformationResponseBody = { message?: string | undefined };
-
-export const DeleteTransformationResponseBody$zodSchema: z.ZodType<
-  DeleteTransformationResponseBody
-> = z.object({
-  message: z.string().optional(),
-}).describe("Transformation deleted");
-
-export type DeleteTransformationResponse =
-  | ApiError
-  | DeleteTransformationResponseBody;
+export type DeleteTransformationResponse = MessageResponse | ApiError;
 
 export const DeleteTransformationResponse$zodSchema: z.ZodType<
   DeleteTransformationResponse
 > = z.union([
+  MessageResponse$zodSchema,
   ApiError$zodSchema,
-  z.lazy(() => DeleteTransformationResponseBody$zodSchema),
 ]);

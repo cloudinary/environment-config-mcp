@@ -15,14 +15,6 @@ export const CreateTriggerGlobals$zodSchema: z.ZodType<CreateTriggerGlobals> = z
     ).optional(),
   });
 
-export type CreateTriggerRequest = { uri: string; event_type: string };
-
-export const CreateTriggerRequest$zodSchema: z.ZodType<CreateTriggerRequest> = z
-  .object({
-    event_type: z.string(),
-    uri: z.string(),
-  });
-
 export type CreateTriggerResponse = TriggerInfo | ApiError;
 
 export const CreateTriggerResponse$zodSchema: z.ZodType<CreateTriggerResponse> =

@@ -3,11 +3,13 @@
  */
 
 import { uploadMappingsCreateUploadMapping } from "../../funcs/uploadMappingsCreateUploadMapping.js";
-import { CreateUploadMappingRequest$zodSchema } from "../../models/createuploadmappingop.js";
+import { UploadMappingInput$zodSchema } from "../../models/uploadmappinginput.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: CreateUploadMappingRequest$zodSchema,
+  request: UploadMappingInput$zodSchema.describe(
+    `The upload mapping folder and URL template.`,
+  ),
 };
 
 export const tool$uploadMappingsCreateUploadMapping: ToolDefinition<

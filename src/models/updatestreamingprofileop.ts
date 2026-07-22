@@ -5,13 +5,13 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  StreamingProfile,
-  StreamingProfile$zodSchema,
-} from "./streamingprofile.js";
-import {
   StreamingProfileUpdate,
   StreamingProfileUpdate$zodSchema,
 } from "./streamingprofileupdate.js";
+import {
+  StreamingProfileUpdateResponse,
+  StreamingProfileUpdateResponse$zodSchema,
+} from "./streamingprofileupdateresponse.js";
 
 export type UpdateStreamingProfileGlobals = { cloud_name?: string | undefined };
 
@@ -30,32 +30,19 @@ export type UpdateStreamingProfileRequest = {
 export const UpdateStreamingProfileRequest$zodSchema: z.ZodType<
   UpdateStreamingProfileRequest
 > = z.object({
-  name: z.string(),
-  streaming_profile_update: StreamingProfileUpdate$zodSchema,
+  name: z.string().describe("The name of the streaming profile."),
+  streaming_profile_update: StreamingProfileUpdate$zodSchema.describe(
+    "The updated streaming profile configuration.",
+  ),
 });
 
-/**
- * Streaming profile updated
- */
-export type UpdateStreamingProfileResponseBody = {
-  message: string;
-  data: StreamingProfile;
-};
-
-export const UpdateStreamingProfileResponseBody$zodSchema: z.ZodType<
-  UpdateStreamingProfileResponseBody
-> = z.object({
-  data: StreamingProfile$zodSchema,
-  message: z.string(),
-}).describe("Streaming profile updated");
-
 export type UpdateStreamingProfileResponse =
-  | UpdateStreamingProfileResponseBody
+  | StreamingProfileUpdateResponse
   | ApiError;
 
 export const UpdateStreamingProfileResponse$zodSchema: z.ZodType<
   UpdateStreamingProfileResponse
 > = z.union([
-  z.lazy(() => UpdateStreamingProfileResponseBody$zodSchema),
+  StreamingProfileUpdateResponse$zodSchema,
   ApiError$zodSchema,
 ]);

@@ -3,11 +3,13 @@
  */
 
 import { uploadMappingsUpdateUploadMapping } from "../../funcs/uploadMappingsUpdateUploadMapping.js";
-import { UpdateUploadMappingRequest$zodSchema } from "../../models/updateuploadmappingop.js";
+import { UploadMappingInput$zodSchema } from "../../models/uploadmappinginput.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UpdateUploadMappingRequest$zodSchema,
+  request: UploadMappingInput$zodSchema.describe(
+    `The updated upload mapping folder and URL template.`,
+  ),
 };
 
 export const tool$uploadMappingsUpdateUploadMapping: ToolDefinition<
@@ -15,7 +17,7 @@ export const tool$uploadMappingsUpdateUploadMapping: ToolDefinition<
 > = {
   name: "update-upload-mapping",
   description:
-    `Updates an existing upload mapping by changing its remote URL template for a given
+    `Updates an existing upload mapping by changing its remote URL template for a given folder
 
 Updates the URL template for an existing folder mapping`,
   scopes: ["builder"],

@@ -4,12 +4,14 @@
 
 import * as z from "zod";
 import { uploadPresetsUpdateUploadPreset } from "../../funcs/uploadPresetsUpdateUploadPreset.js";
-import { UploadPreset$zodSchema } from "../../models/uploadpreset.js";
+import { UploadPresetInput$zodSchema } from "../../models/uploadpresetinput.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  name: z.string(),
-  upload_preset: UploadPreset$zodSchema,
+  name: z.string().describe("The name of the upload preset."),
+  upload_preset_input: UploadPresetInput$zodSchema.describe(
+    `The updated upload preset configuration.`,
+  ),
 };
 
 export const tool$uploadPresetsUpdateUploadPreset: ToolDefinition<typeof args> =
@@ -29,7 +31,7 @@ export const tool$uploadPresetsUpdateUploadPreset: ToolDefinition<typeof args> =
       const [result] = await uploadPresetsUpdateUploadPreset(
         client,
         args.name,
-        args.upload_preset,
+        args.upload_preset_input,
         { fetchOptions: { signal: ctx.signal } },
       ).$inspect();
 

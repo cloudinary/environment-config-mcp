@@ -18,6 +18,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { EventType } from "../models/eventtype.js";
 import {
   ListTriggerRequest,
   ListTriggerRequest$zodSchema,
@@ -26,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Lists all webhook notification triggers configured for your product environmentcloudinary
+ * Lists all webhook notification triggers configured for your product environment
  *
  * @remarks
  * Retrieves a list of all event triggers and notifications within your product environment.
  */
 export function triggersListTrigger(
   client$: CloudinaryEnvConfigCore,
-  event_type?: string | undefined,
+  event_type?: EventType | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +57,7 @@ export function triggersListTrigger(
 
 async function $do(
   client$: CloudinaryEnvConfigCore,
-  event_type?: string | undefined,
+  event_type?: EventType | undefined,
   options?: RequestOptions,
 ): Promise<
   [

@@ -27,7 +27,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Creates a new named transformation (assigning a custom name to a set of transformation
+ * Creates a new named transformation by assigning a custom name to a set of transformation parameters
  *
  * @remarks
  * Creates a new named transformation with the given name and transformation string.

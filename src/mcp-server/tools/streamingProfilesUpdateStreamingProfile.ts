@@ -8,8 +8,10 @@ import { StreamingProfileUpdate$zodSchema } from "../../models/streamingprofileu
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  name: z.string(),
-  streaming_profile_update: StreamingProfileUpdate$zodSchema,
+  name: z.string().describe("The name of the streaming profile."),
+  streaming_profile_update: StreamingProfileUpdate$zodSchema.describe(
+    `The updated streaming profile configuration.`,
+  ),
 };
 
 export const tool$streamingProfilesUpdateStreamingProfile: ToolDefinition<

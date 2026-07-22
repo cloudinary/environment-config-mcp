@@ -2,7 +2,7 @@
 export const toolNames: Array<{ name: string; description: string }>= [
   {
     "name": "list-transformations",
-    "description": "Lists all transformation definitions in your account (including named transformations\n\nRetrieves a list of all transformations, which can be filtered to show either only named or unnamed transformations.\n"
+    "description": "Lists all transformation definitions in your account, including named transformations\n\nRetrieves a list of all transformations, which can be filtered to show either only named or unnamed transformations.\n"
   },
   {
     "name": "get-transformation-details",
@@ -10,11 +10,11 @@ export const toolNames: Array<{ name: string; description: string }>= [
   },
   {
     "name": "create-transformation",
-    "description": "Creates a new named transformation (assigning a custom name to a set of transformation\n\nCreates a new named transformation with the given name and transformation string.\n"
+    "description": "Creates a new named transformation by assigning a custom name to a set of transformation parameters\n\nCreates a new named transformation with the given name and transformation string.\n"
   },
   {
     "name": "update-transformation",
-    "description": "Updates the definition of an existing named transformation\n\nUpdate an existing named or unnamed transformation.\n"
+    "description": "Updates the definition of an existing transformation\n\nUpdates a named or unnamed transformation.\n"
   },
   {
     "name": "delete-transformation",
@@ -50,7 +50,7 @@ export const toolNames: Array<{ name: string; description: string }>= [
   },
   {
     "name": "update-upload-mapping",
-    "description": "Updates an existing upload mapping by changing its remote URL template for a given\n\nUpdates the URL template for an existing folder mapping"
+    "description": "Updates an existing upload mapping by changing its remote URL template for a given folder\n\nUpdates the URL template for an existing folder mapping"
   },
   {
     "name": "delete-upload-mapping",
@@ -58,7 +58,7 @@ export const toolNames: Array<{ name: string; description: string }>= [
   },
   {
     "name": "list-triggers",
-    "description": "Lists all webhook notification triggers configured for your product environmentcloudinary\n\nRetrieves a list of all event triggers and notifications within your product environment.\n"
+    "description": "Lists all webhook notification triggers configured for your product environment\n\nRetrieves a list of all event triggers and notifications within your product environment.\n"
   },
   {
     "name": "create-trigger",

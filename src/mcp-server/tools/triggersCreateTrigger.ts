@@ -3,11 +3,13 @@
  */
 
 import { triggersCreateTrigger } from "../../funcs/triggersCreateTrigger.js";
-import { CreateTriggerRequest$zodSchema } from "../../models/createtriggerop.js";
+import { CreateTriggerRequest$zodSchema } from "../../models/createtriggerrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: CreateTriggerRequest$zodSchema,
+  request: CreateTriggerRequest$zodSchema.describe(
+    `The webhook notification trigger to create.`,
+  ),
 };
 
 export const tool$triggersCreateTrigger: ToolDefinition<typeof args> = {

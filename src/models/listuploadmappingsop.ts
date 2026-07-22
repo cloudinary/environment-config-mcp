@@ -5,6 +5,10 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { UploadMapping, UploadMapping$zodSchema } from "./uploadmapping.js";
+import {
+  UploadMappingListResponse,
+  UploadMappingListResponse$zodSchema,
+} from "./uploadmappinglistresponse.js";
 
 export type ListUploadMappingsGlobals = { cloud_name?: string | undefined };
 
@@ -36,36 +40,23 @@ export const ListUploadMappingsRequest$zodSchema: z.ZodType<
 });
 
 /**
- * List response
- */
-export type ResponseBody = {
-  mappings: Array<UploadMapping>;
-  total_entries: number;
-  next_cursor?: string | undefined;
-};
-
-export const ResponseBody$zodSchema: z.ZodType<ResponseBody> = z.object({
-  mappings: z.array(UploadMapping$zodSchema),
-  next_cursor: z.string().optional(),
-  total_entries: z.int(),
-}).describe("List response");
-
-/**
  * Upload mappings retrieved successfully
  */
-export type ListUploadMappingsResponseBody = UploadMapping | ResponseBody;
+export type ListUploadMappingsResponseBody =
+  | UploadMapping
+  | UploadMappingListResponse;
 
 export const ListUploadMappingsResponseBody$zodSchema: z.ZodType<
   ListUploadMappingsResponseBody
 > = z.union([
   UploadMapping$zodSchema,
-  z.lazy(() => ResponseBody$zodSchema),
+  UploadMappingListResponse$zodSchema,
 ]).describe("Upload mappings retrieved successfully");
 
 export type ListUploadMappingsResponse =
   | ApiError
   | UploadMapping
-  | ResponseBody;
+  | UploadMappingListResponse;
 
 export const ListUploadMappingsResponse$zodSchema: z.ZodType<
   ListUploadMappingsResponse
@@ -73,6 +64,6 @@ export const ListUploadMappingsResponse$zodSchema: z.ZodType<
   ApiError$zodSchema,
   z.union([
     UploadMapping$zodSchema,
-    z.lazy(() => ResponseBody$zodSchema),
+    UploadMappingListResponse$zodSchema,
   ]),
 ]);

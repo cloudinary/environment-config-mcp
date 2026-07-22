@@ -7,7 +7,7 @@ import { triggersDeleteTrigger } from "../../funcs/triggersDeleteTrigger.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  id: z.string(),
+  id: z.string().describe("The ID of the trigger."),
 };
 
 export const tool$triggersDeleteTrigger: ToolDefinition<typeof args> = {

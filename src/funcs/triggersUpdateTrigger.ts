@@ -19,10 +19,10 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UpdateTriggerRequest,
-  UpdateTriggerRequest$zodSchema,
-  UpdateTriggerRequestBody,
+  UpdateTriggerRequestRequest,
+  UpdateTriggerRequestRequest$zodSchema,
 } from "../models/updatetriggerop.js";
+import { UpdateTriggerRequest } from "../models/updatetriggerrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
 export function triggersUpdateTrigger(
   client$: CloudinaryEnvConfigCore,
   id: string,
-  RequestBody: UpdateTriggerRequestBody,
+  update_trigger_request: UpdateTriggerRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -52,7 +52,7 @@ export function triggersUpdateTrigger(
   return new APIPromise($do(
     client$,
     id,
-    RequestBody,
+    update_trigger_request,
     options,
   ));
 }
@@ -60,7 +60,7 @@ export function triggersUpdateTrigger(
 async function $do(
   client$: CloudinaryEnvConfigCore,
   id: string,
-  RequestBody: UpdateTriggerRequestBody,
+  update_trigger_request: UpdateTriggerRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -77,21 +77,23 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: UpdateTriggerRequest = {
+  const input$: UpdateTriggerRequestRequest = {
     id: id,
-    RequestBody: RequestBody,
+    update_trigger_request: update_trigger_request,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => UpdateTriggerRequest$zodSchema.parse(value$),
+    (value$) => UpdateTriggerRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.update_trigger_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

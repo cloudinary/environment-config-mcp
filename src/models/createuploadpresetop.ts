@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  UploadPresetCreateResponse,
+  UploadPresetCreateResponse$zodSchema,
+} from "./uploadpresetcreateresponse.js";
 
 export type CreateUploadPresetGlobals = { cloud_name?: string | undefined };
 
@@ -14,30 +18,11 @@ export const CreateUploadPresetGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * upload preset created
- */
-export type CreateUploadPresetResponseBody = {
-  name: string;
-  message: string;
-  external_id: string;
-};
-
-export const CreateUploadPresetResponseBody$zodSchema: z.ZodType<
-  CreateUploadPresetResponseBody
-> = z.object({
-  external_id: z.string(),
-  message: z.string(),
-  name: z.string(),
-}).describe("upload preset created");
-
-export type CreateUploadPresetResponse =
-  | CreateUploadPresetResponseBody
-  | ApiError;
+export type CreateUploadPresetResponse = UploadPresetCreateResponse | ApiError;
 
 export const CreateUploadPresetResponse$zodSchema: z.ZodType<
   CreateUploadPresetResponse
 > = z.union([
-  z.lazy(() => CreateUploadPresetResponseBody$zodSchema),
+  UploadPresetCreateResponse$zodSchema,
   ApiError$zodSchema,
 ]);

@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  StreamingProfile,
-  StreamingProfile$zodSchema,
-} from "./streamingprofile.js";
+  StreamingProfileDataResponse,
+  StreamingProfileDataResponse$zodSchema,
+} from "./streamingprofiledataresponse.js";
 
 export type GetStreamingProfileGlobals = { cloud_name?: string | undefined };
 
@@ -23,27 +23,16 @@ export type GetStreamingProfileRequest = { name: string };
 export const GetStreamingProfileRequest$zodSchema: z.ZodType<
   GetStreamingProfileRequest
 > = z.object({
-  name: z.string(),
+  name: z.string().describe("The name of the streaming profile."),
 });
 
-/**
- * Streaming profile retrieved
- */
-export type GetStreamingProfileResponseBody = { data: StreamingProfile };
-
-export const GetStreamingProfileResponseBody$zodSchema: z.ZodType<
-  GetStreamingProfileResponseBody
-> = z.object({
-  data: StreamingProfile$zodSchema,
-}).describe("Streaming profile retrieved");
-
 export type GetStreamingProfileResponse =
-  | GetStreamingProfileResponseBody
+  | StreamingProfileDataResponse
   | ApiError;
 
 export const GetStreamingProfileResponse$zodSchema: z.ZodType<
   GetStreamingProfileResponse
 > = z.union([
-  z.lazy(() => GetStreamingProfileResponseBody$zodSchema),
+  StreamingProfileDataResponse$zodSchema,
   ApiError$zodSchema,
 ]);

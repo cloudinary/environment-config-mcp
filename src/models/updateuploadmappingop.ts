@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  UploadMappingMutationResponse,
+  UploadMappingMutationResponse$zodSchema,
+} from "./uploadmappingmutationresponse.js";
 
 export type UpdateUploadMappingGlobals = { cloud_name?: string | undefined };
 
@@ -14,37 +18,13 @@ export const UpdateUploadMappingGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type UpdateUploadMappingRequest = { folder: string; template: string };
-
-export const UpdateUploadMappingRequest$zodSchema: z.ZodType<
-  UpdateUploadMappingRequest
-> = z.object({
-  folder: z.string(),
-  template: z.string(),
-});
-
-/**
- * Upload mapping updated successfully
- */
-export type UpdateUploadMappingResponseBody = {
-  message: string;
-  external_id: string;
-};
-
-export const UpdateUploadMappingResponseBody$zodSchema: z.ZodType<
-  UpdateUploadMappingResponseBody
-> = z.object({
-  external_id: z.string(),
-  message: z.string(),
-}).describe("Upload mapping updated successfully");
-
 export type UpdateUploadMappingResponse =
-  | UpdateUploadMappingResponseBody
+  | UploadMappingMutationResponse
   | ApiError;
 
 export const UpdateUploadMappingResponse$zodSchema: z.ZodType<
   UpdateUploadMappingResponse
 > = z.union([
-  z.lazy(() => UpdateUploadMappingResponseBody$zodSchema),
+  UploadMappingMutationResponse$zodSchema,
   ApiError$zodSchema,
 ]);

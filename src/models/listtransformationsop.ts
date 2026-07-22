@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
+import {
+  TransformationListResponse,
+  TransformationListResponse$zodSchema,
+} from "./transformationlistresponse.js";
 
 export type ListTransformationsGlobals = { cloud_name?: string | undefined };
 
@@ -35,11 +38,11 @@ export const ListTransformationsRequest$zodSchema: z.ZodType<
   ).optional(),
 });
 
-export type ListTransformationsResponse = ApiError | ListResponse;
+export type ListTransformationsResponse = ApiError | TransformationListResponse;
 
 export const ListTransformationsResponse$zodSchema: z.ZodType<
   ListTransformationsResponse
 > = z.union([
   ApiError$zodSchema,
-  ListResponse$zodSchema,
+  TransformationListResponse$zodSchema,
 ]);

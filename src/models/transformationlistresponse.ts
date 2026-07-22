@@ -8,12 +8,14 @@ import {
   TransformationSummary$zodSchema,
 } from "./transformationsummary.js";
 
-export type ListResponse = {
+export type TransformationListResponse = {
   transformations?: Array<TransformationSummary> | undefined;
   next_cursor?: string | null | undefined;
 };
 
-export const ListResponse$zodSchema: z.ZodType<ListResponse> = z.object({
+export const TransformationListResponse$zodSchema: z.ZodType<
+  TransformationListResponse
+> = z.object({
   next_cursor: z.string().nullable().optional(),
   transformations: z.array(TransformationSummary$zodSchema).optional(),
 });

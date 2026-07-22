@@ -4,6 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  MessageResponse,
+  MessageResponse$zodSchema,
+} from "./messageresponse.js";
 
 export type DeleteStreamingProfileGlobals = { cloud_name?: string | undefined };
 
@@ -19,27 +23,14 @@ export type DeleteStreamingProfileRequest = { name: string };
 export const DeleteStreamingProfileRequest$zodSchema: z.ZodType<
   DeleteStreamingProfileRequest
 > = z.object({
-  name: z.string(),
+  name: z.string().describe("The name of the streaming profile."),
 });
 
-/**
- * Streaming profile deleted or reverted
- */
-export type DeleteStreamingProfileResponseBody = { message: string };
-
-export const DeleteStreamingProfileResponseBody$zodSchema: z.ZodType<
-  DeleteStreamingProfileResponseBody
-> = z.object({
-  message: z.string(),
-}).describe("Streaming profile deleted or reverted");
-
-export type DeleteStreamingProfileResponse =
-  | DeleteStreamingProfileResponseBody
-  | ApiError;
+export type DeleteStreamingProfileResponse = MessageResponse | ApiError;
 
 export const DeleteStreamingProfileResponse$zodSchema: z.ZodType<
   DeleteStreamingProfileResponse
 > = z.union([
-  z.lazy(() => DeleteStreamingProfileResponseBody$zodSchema),
+  MessageResponse$zodSchema,
   ApiError$zodSchema,
 ]);

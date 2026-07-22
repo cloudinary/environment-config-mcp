@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { UploadPreset, UploadPreset$zodSchema } from "./uploadpreset.js";
+import {
+  UploadPresetDetail,
+  UploadPresetDetail$zodSchema,
+} from "./uploadpresetdetail.js";
 
 export type GetUploadPresetGlobals = { cloud_name?: string | undefined };
 
@@ -20,14 +23,14 @@ export type GetUploadPresetRequest = { name: string };
 export const GetUploadPresetRequest$zodSchema: z.ZodType<
   GetUploadPresetRequest
 > = z.object({
-  name: z.string(),
+  name: z.string().describe("The name of the upload preset."),
 });
 
-export type GetUploadPresetResponse = ApiError | UploadPreset;
+export type GetUploadPresetResponse = UploadPresetDetail | ApiError;
 
 export const GetUploadPresetResponse$zodSchema: z.ZodType<
   GetUploadPresetResponse
 > = z.union([
+  UploadPresetDetail$zodSchema,
   ApiError$zodSchema,
-  UploadPreset$zodSchema,
 ]);
