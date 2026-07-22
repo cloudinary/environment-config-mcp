@@ -12,9 +12,7 @@ const args = {
   transformation: z.string().describe(
     "The transformation identifier. Can be either a named transformation (e.g., 'small_profile_thumbnail') or a transformation string (e.g., 'w_100,h_150,c_fill,g_auto').\n",
   ),
-  update_request: UpdateRequest$zodSchema.describe(
-    `The updated transformation definition.`,
-  ),
+  update_request: UpdateRequest$zodSchema,
 };
 
 export const tool$transformationsUpdateTransformation: ToolDefinition<

@@ -10,12 +10,8 @@ import { OrderBy$zodSchema } from "../../models/listuploadpresetsop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  order_by: OrderBy$zodSchema.optional().describe(
-    `The field to sort presets by.`,
-  ),
-  direction: DirectionEnum$zodSchema.optional().describe(
-    `The sort direction for the results. Default is "desc".`,
-  ),
+  order_by: OrderBy$zodSchema.optional(),
+  direction: DirectionEnum$zodSchema.optional(),
   max_results: z.int().default(10).describe(
     "The maximum number of results to return. Default is 10.",
   ),

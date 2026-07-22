@@ -9,6 +9,6 @@ export type UploadMappingInput = { folder: string; template: string };
 
 export const UploadMappingInput$zodSchema: z.ZodType<UploadMappingInput> = z
   .object({
-    folder: z.string().describe("The folder name for the mapping."),
-    template: z.string().describe("The template URL."),
+    folder: z.string(),
+    template: z.string(),
   });

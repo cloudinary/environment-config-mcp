@@ -16,8 +16,6 @@ export type TriggerListResponse = {
 
 export const TriggerListResponse$zodSchema: z.ZodType<TriggerListResponse> = z
   .object({
-    total: z.int().describe("Total number of triggers."),
-    triggers: z.array(TriggerInfo$zodSchema).describe(
-      "List of trigger objects.",
-    ),
+    total: z.int(),
+    triggers: z.array(TriggerInfo$zodSchema),
   }).describe("List response for triggers.");

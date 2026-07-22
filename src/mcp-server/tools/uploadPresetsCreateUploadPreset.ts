@@ -8,9 +8,7 @@ import { UploadPresetInput$zodSchema } from "../../models/uploadpresetinput.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UploadPresetInput$zodSchema.describe(
-    `The upload preset configuration.`,
-  ),
+  request: UploadPresetInput$zodSchema,
 };
 
 export const tool$uploadPresetsCreateUploadPreset: ToolDefinition<typeof args> =

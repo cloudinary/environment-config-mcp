@@ -32,9 +32,7 @@ export const UpdateStreamingProfileRequest$zodSchema: z.ZodType<
   UpdateStreamingProfileRequest
 > = z.object({
   name: z.string().describe("The name of the streaming profile."),
-  streaming_profile_update: StreamingProfileUpdate$zodSchema.describe(
-    "The updated streaming profile configuration.",
-  ),
+  streaming_profile_update: StreamingProfileUpdate$zodSchema,
 });
 
 export type UpdateStreamingProfileResponse =

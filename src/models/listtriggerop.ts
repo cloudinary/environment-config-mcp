@@ -24,9 +24,7 @@ export type ListTriggerRequest = { event_type?: EventType | undefined };
 
 export const ListTriggerRequest$zodSchema: z.ZodType<ListTriggerRequest> = z
   .object({
-    event_type: EventType$zodSchema.optional().describe(
-      "The type of event that will trigger the notification response.",
-    ),
+    event_type: EventType$zodSchema.optional(),
   });
 
 export type ListTriggerResponse = TriggerListResponse | ApiError;

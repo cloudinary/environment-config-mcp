@@ -13,10 +13,6 @@ export type StreamingProfileUpdate = {
 export const StreamingProfileUpdate$zodSchema: z.ZodType<
   StreamingProfileUpdate
 > = z.object({
-  display_name: z.string().nullable().optional().describe(
-    "The display name of the streaming profile",
-  ),
-  representations: z.string().describe(
-    "A JSON string containing the list of representations with transformation parameters as strings",
-  ),
+  display_name: z.string().nullable().optional(),
+  representations: z.string(),
 });

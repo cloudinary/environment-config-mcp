@@ -8,9 +8,7 @@ import { EventType$zodSchema } from "../../models/eventtype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  event_type: EventType$zodSchema.optional().describe(
-    `The type of event that will trigger the notification response.`,
-  ),
+  event_type: EventType$zodSchema.optional(),
 };
 
 export const tool$triggersListTrigger: ToolDefinition<typeof args> = {

@@ -17,7 +17,5 @@ export type TestTriggerRequest = { sample_data?: SampleData | undefined };
 
 export const TestTriggerRequest$zodSchema: z.ZodType<TestTriggerRequest> = z
   .object({
-    sample_data: z.lazy(() => SampleData$zodSchema).optional().describe(
-      "Sample notification data to evaluate the filter against.",
-    ),
+    sample_data: z.lazy(() => SampleData$zodSchema).optional(),
   });

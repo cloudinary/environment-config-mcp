@@ -14,22 +14,17 @@ type OAuth2PasswordFlow = {
   tokenURL: string;
 };
 
-export const SecurityErrorCode = {
-  Incomplete: "incomplete",
-  UnrecognisedSecurityType: "unrecognized_security_type",
-} as const;
-export type SecurityErrorCode =
-  (typeof SecurityErrorCode)[keyof typeof SecurityErrorCode];
+export enum SecurityErrorCode {
+  Incomplete = "incomplete",
+  UnrecognisedSecurityType = "unrecognized_security_type",
+}
 
 export class SecurityError extends Error {
-  public code: SecurityErrorCode;
-
   constructor(
-    code: SecurityErrorCode,
+    public code: SecurityErrorCode,
     message: string,
   ) {
     super(message);
-    this.code = code;
     this.name = "SecurityError";
   }
 
@@ -246,9 +241,8 @@ function applyBearer(
 }
 export function resolveGlobalSecurity(
   security: Partial<Security> | null | undefined,
-  allowedFields?: number[],
 ): SecurityState | null {
-  let inputs: SecurityInput[][] = [
+  return resolveSecurity(
     [
       {
         type: "http:custom",
@@ -267,18 +261,7 @@ export function resolveGlobalSecurity(
         value: security?.oauth2 || env().CLOUDINARY_OAUTH2,
       },
     ],
-  ];
-
-  if (allowedFields) {
-    inputs = allowedFields.map((i) => {
-      if (i < 0 || i >= inputs.length) {
-        throw new RangeError(`invalid allowedFields index ${i}`);
-      }
-      return inputs[i]!;
-    });
-  }
-
-  return resolveSecurity(...inputs);
+  );
 }
 
 export async function extractSecurity<

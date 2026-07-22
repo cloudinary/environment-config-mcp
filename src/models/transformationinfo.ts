@@ -42,15 +42,11 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   height: z.union([
     z.int(),
     z.string(),
-  ]).optional().describe(
-    "Height - integer pixels or string variable reference (e.g., \"$h\")",
-  ),
+  ]).optional(),
   width: z.union([
     z.int(),
     z.string(),
-  ]).optional().describe(
-    "Width - integer pixels or string variable reference (e.g., \"$w\")",
-  ),
+  ]).optional(),
 });
 
 export type Derived = {
@@ -87,13 +83,9 @@ export type TransformationInfo = {
 
 export const TransformationInfo$zodSchema: z.ZodType<TransformationInfo> = z
   .object({
-    allowed_for_strict: z.boolean().optional().describe(
-      "Whether to allow this named transformation when [strict transformations](https://cloudinary.com/documentation/control_access_to_media#strict_transformations) are enabled.\n",
-    ),
+    allowed_for_strict: z.boolean().optional(),
     derived: z.array(z.lazy(() => Derived$zodSchema)).optional(),
-    info: z.array(z.lazy(() => Info$zodSchema)).optional().describe(
-      "API transformation parameters",
-    ),
+    info: z.array(z.lazy(() => Info$zodSchema)).optional(),
     name: z.string().optional(),
     named: z.boolean().optional(),
     next_cursor: z.string().optional(),

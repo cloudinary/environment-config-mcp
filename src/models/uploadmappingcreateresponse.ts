@@ -14,7 +14,7 @@ export type UploadMappingCreateResponse = {
 export const UploadMappingCreateResponse$zodSchema: z.ZodType<
   UploadMappingCreateResponse
 > = z.object({
-  external_id: z.string().describe("Unique identifier for the mapping."),
-  folder: z.string().describe("The folder name that was created."),
+  external_id: z.string(),
+  folder: z.string(),
   message: z.string(),
 });

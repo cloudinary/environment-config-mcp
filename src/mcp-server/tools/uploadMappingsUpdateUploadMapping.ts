@@ -8,9 +8,7 @@ import { UploadMappingInput$zodSchema } from "../../models/uploadmappinginput.js
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: UploadMappingInput$zodSchema.describe(
-    `The updated upload mapping folder and URL template.`,
-  ),
+  request: UploadMappingInput$zodSchema,
 };
 
 export const tool$uploadMappingsUpdateUploadMapping: ToolDefinition<

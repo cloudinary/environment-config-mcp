@@ -32,9 +32,7 @@ export const UpdateTriggerRequestRequest$zodSchema: z.ZodType<
   UpdateTriggerRequestRequest
 > = z.object({
   id: z.string().describe("The ID of the trigger."),
-  update_trigger_request: UpdateTriggerRequest$zodSchema.describe(
-    "The updated trigger configuration.",
-  ),
+  update_trigger_request: UpdateTriggerRequest$zodSchema,
 });
 
 export type UpdateTriggerResponse = MessageResponse | ApiError;

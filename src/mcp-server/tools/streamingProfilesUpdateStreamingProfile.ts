@@ -10,9 +10,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   name: z.string().describe("The name of the streaming profile."),
-  streaming_profile_update: StreamingProfileUpdate$zodSchema.describe(
-    `The updated streaming profile configuration.`,
-  ),
+  streaming_profile_update: StreamingProfileUpdate$zodSchema,
 };
 
 export const tool$streamingProfilesUpdateStreamingProfile: ToolDefinition<

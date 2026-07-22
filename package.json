@@ -1,6 +1,6 @@
 {
   "name": "@cloudinary/environment-config-mcp",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "author": "Cloudinary",
   "type": "module",
   "sideEffects": false,
@@ -22,13 +22,12 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.26.0",
     "@stricli/core": "^1.1.2",
+    "bun": "^1.2.12",
     "express": "^5.1.0",
     "zod": "^4.0.0"
   },
   "overrides": {
-    "@modelcontextprotocol/sdk": "1.26.0",
-    "hono": ">=4.12.25",
-    "fast-uri": ">=3.1.2"
+    "@modelcontextprotocol/sdk": "1.26.0"
   },
   "devDependencies": {
     "@anthropic-ai/mcpb": "^1.2.0",
@@ -36,7 +35,6 @@
     "@types/bun": "^1.2.13",
     "@types/express": "^5.0.1",
     "@types/node": "^18.19.3",
-    "bun": "^1.2.12",
     "eslint": "^9.26.0",
     "globals": "^16.0.0",
     "typescript": "~5.8.3",

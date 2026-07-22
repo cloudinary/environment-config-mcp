@@ -13,7 +13,6 @@ import {
 } from "../../console-logger.js";
 import { MCPServerFlags } from "../../flags.js";
 import { createMCPServer } from "../../server.js";
-import { buildAnnotationFilter } from "../../tools.js";
 import { buildSDK } from "../../tools.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
@@ -41,7 +40,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Headers", "Content-Type, *");
     if (req.method === "OPTIONS") {
       res.sendStatus(204);
       return;
@@ -67,7 +66,6 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       logger,
       allowedTools: cliFlags.tool,
       dynamic: cliFlags.mode === "dynamic",
-      annotationFilter: buildAnnotationFilter(cliFlags["tool-annotations"]),
       scopes: cliFlags.scope,
       serverURL: cliFlags["server-url"],
       getSDK: () =>

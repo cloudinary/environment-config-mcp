@@ -13,11 +13,7 @@ export type TestTriggerResponse = {
 
 export const TestTriggerResponse$zodSchema: z.ZodType<TestTriggerResponse> = z
   .object({
-    filter_present: z.boolean().describe(
-      "Whether the trigger has a filter configured.",
-    ),
-    filter_result: z.boolean().describe(
-      "Result of evaluating the filter against sample_data (true if no filter).",
-    ),
-    trigger_id: z.string().describe("The ID of the trigger that was tested."),
+    filter_present: z.boolean(),
+    filter_result: z.boolean(),
+    trigger_id: z.string(),
   });

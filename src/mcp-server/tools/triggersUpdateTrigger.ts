@@ -10,9 +10,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   id: z.string().describe("The ID of the trigger."),
-  update_trigger_request: UpdateTriggerRequest$zodSchema.describe(
-    `The updated trigger configuration.`,
-  ),
+  update_trigger_request: UpdateTriggerRequest$zodSchema,
 };
 
 export const tool$triggersUpdateTrigger: ToolDefinition<typeof args> = {

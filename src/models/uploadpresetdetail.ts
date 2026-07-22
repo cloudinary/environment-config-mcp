@@ -21,16 +21,10 @@ export type UploadPresetDetail = {
 
 export const UploadPresetDetail$zodSchema: z.ZodType<UploadPresetDetail> = z
   .object({
-    external_id: z.string().describe(
-      "The unique identifier for the upload preset.",
-    ),
-    name: z.string().describe("The name of the upload preset."),
-    settings: UploadPresetParsedSettings$zodSchema.optional().describe(
-      "Parsed preset configuration settings. Composed from base parameters (stable types) plus parsed serializable fields (arrays/objects instead of strings).",
-    ),
-    unsigned: z.boolean().optional().describe(
-      "Whether the upload preset allows unsigned uploads.",
-    ),
+    external_id: z.string(),
+    name: z.string(),
+    settings: UploadPresetParsedSettings$zodSchema.optional(),
+    unsigned: z.boolean().optional(),
   }).describe(
     "An upload preset as returned by the GET endpoint. Settings values are parsed into their proper types (e.g., tags become arrays, context becomes an object, booleans become true booleans).",
   );

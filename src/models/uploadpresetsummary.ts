@@ -24,22 +24,16 @@ export type UploadPresetSummary = {
 
 export const UploadPresetSummary$zodSchema: z.ZodType<UploadPresetSummary> = z
   .object({
-    external_id: z.string().describe(
-      "The unique identifier for the upload preset.",
-    ),
-    name: z.string().describe("The name of the upload preset."),
+    external_id: z.string(),
+    name: z.string(),
     settings: z.record(
       z.string(),
       z.union([
         z.string(),
         z.boolean(),
       ]),
-    ).optional().describe(
-      "Preset configuration settings. Most values are strings (e.g., tags are comma-separated, context is pipe-separated key=value pairs), but some boolean fields may be returned as native booleans.",
-    ),
-    unsigned: z.boolean().optional().describe(
-      "Whether the upload preset allows unsigned uploads.",
-    ),
+    ).optional(),
+    unsigned: z.boolean().optional(),
   }).describe(
     "An upload preset as returned in list responses. Most settings values are raw strings, but some boolean fields may be returned as native booleans.",
   );

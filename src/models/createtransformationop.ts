@@ -28,9 +28,7 @@ export type CreateTransformationRequest = {
 export const CreateTransformationRequest$zodSchema: z.ZodType<
   CreateTransformationRequest
 > = z.object({
-  create_request: CreateRequest$zodSchema.describe(
-    "The named transformation definition.",
-  ),
+  create_request: CreateRequest$zodSchema,
   transformation: z.string().describe(
     "The valid transformation name to create.",
   ),

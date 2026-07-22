@@ -10,9 +10,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   id: z.string().describe("The ID of the trigger to test."),
-  test_trigger_request: TestTriggerRequest$zodSchema.optional().describe(
-    `The test data for the trigger.`,
-  ),
+  test_trigger_request: TestTriggerRequest$zodSchema.optional(),
 };
 
 export const tool$triggersTestTrigger: ToolDefinition<typeof args> = {

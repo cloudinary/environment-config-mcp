@@ -32,9 +32,7 @@ export const UpdateUploadPresetRequest$zodSchema: z.ZodType<
   UpdateUploadPresetRequest
 > = z.object({
   name: z.string().describe("The name of the upload preset."),
-  upload_preset_input: UploadPresetInput$zodSchema.describe(
-    "The updated upload preset configuration.",
-  ),
+  upload_preset_input: UploadPresetInput$zodSchema,
 });
 
 export type UpdateUploadPresetResponse =

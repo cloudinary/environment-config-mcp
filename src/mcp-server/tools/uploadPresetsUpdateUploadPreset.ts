@@ -10,9 +10,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   name: z.string().describe("The name of the upload preset."),
-  upload_preset_input: UploadPresetInput$zodSchema.describe(
-    `The updated upload preset configuration.`,
-  ),
+  upload_preset_input: UploadPresetInput$zodSchema,
 };
 
 export const tool$uploadPresetsUpdateUploadPreset: ToolDefinition<typeof args> =

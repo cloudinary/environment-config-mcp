@@ -12,9 +12,7 @@ const args = {
   transformation: z.string().describe(
     "The valid transformation name to create.",
   ),
-  create_request: CreateRequest$zodSchema.describe(
-    `The named transformation definition.`,
-  ),
+  create_request: CreateRequest$zodSchema,
 };
 
 export const tool$transformationsCreateTransformation: ToolDefinition<
