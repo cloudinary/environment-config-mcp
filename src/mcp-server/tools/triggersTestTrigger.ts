@@ -36,7 +36,7 @@ Use this endpoint to verify that a trigger's filter will match expected events.
       client,
       args.id,
       args.test_trigger_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -34,7 +34,7 @@ Updates the URL template for an existing folder mapping`,
     const [result] = await uploadMappingsUpdateUploadMapping(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
