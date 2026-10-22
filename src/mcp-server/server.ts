@@ -3,7 +3,7 @@
  * @generated-id: 2784dd48e82a
  */
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/server";
 import { CloudinaryEnvConfigCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
@@ -59,7 +59,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryEnvConfig",
-    version: "0.6.2",
+    version: "0.7.0",
   });
 
   const getClient = deps.getSDK || (() =>

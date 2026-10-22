@@ -29,7 +29,7 @@ Deletes a trigger.`,
     const [result] = await triggersDeleteTrigger(
       client,
       args.id,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

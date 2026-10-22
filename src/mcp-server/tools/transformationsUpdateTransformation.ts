@@ -39,7 +39,7 @@ Updates a named or unnamed transformation.
       client,
       args.transformation,
       args.update_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

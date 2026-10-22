@@ -35,7 +35,7 @@ export const tool$streamingProfilesUpdateStreamingProfile: ToolDefinition<
       client,
       args.name,
       args.streaming_profile_update,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

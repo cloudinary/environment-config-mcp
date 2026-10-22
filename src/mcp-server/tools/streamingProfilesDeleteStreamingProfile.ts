@@ -30,7 +30,7 @@ export const tool$streamingProfilesDeleteStreamingProfile: ToolDefinition<
     const [result] = await streamingProfilesDeleteStreamingProfile(
       client,
       args.name,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

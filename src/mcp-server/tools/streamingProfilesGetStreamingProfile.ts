@@ -30,7 +30,7 @@ export const tool$streamingProfilesGetStreamingProfile: ToolDefinition<
     const [result] = await streamingProfilesGetStreamingProfile(
       client,
       args.name,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

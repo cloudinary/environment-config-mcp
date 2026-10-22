@@ -43,7 +43,7 @@ Retrieves a list of all transformations, which can be filtered to show either on
       args.named,
       args.max_results,
       args.next_cursor,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
