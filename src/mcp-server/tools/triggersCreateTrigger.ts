@@ -34,7 +34,7 @@ Your product environment supports triggers up to a maximum determined by multipl
     const [result] = await triggersCreateTrigger(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -38,7 +38,7 @@ Delete a named or unnamed transformation. Optionally invalidate derived resource
       client,
       args.transformation,
       args.invalidate,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

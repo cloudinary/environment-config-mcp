@@ -44,7 +44,7 @@ Upload mappings allow you to map an upload preset to a specific folder and URL t
       args.folder,
       args.next_cursor,
       args.max_results,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

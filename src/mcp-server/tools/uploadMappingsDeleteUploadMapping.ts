@@ -31,7 +31,7 @@ Permanently deletes the upload mapping for the specified folder`,
     const [result] = await uploadMappingsDeleteUploadMapping(
       client,
       args.folder,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
