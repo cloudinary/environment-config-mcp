@@ -33,7 +33,7 @@ Retrieves a list of all event triggers and notifications within your product env
     const [result] = await triggersListTrigger(
       client,
       args.event_type,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

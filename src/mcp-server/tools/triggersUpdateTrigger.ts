@@ -35,7 +35,7 @@ Updates a notification URL for a trigger.`,
       client,
       args.id,
       args.update_trigger_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
