@@ -34,7 +34,7 @@ Retrieves details for a named or unnamed transformation.
     const [result] = await transformationsGetTransformation(
       client,
       args.transformation,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

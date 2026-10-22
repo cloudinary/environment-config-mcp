@@ -33,7 +33,7 @@ Creates a new upload mapping for the specified folder`,
     const [result] = await uploadMappingsCreateUploadMapping(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

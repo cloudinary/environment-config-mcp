@@ -40,7 +40,7 @@ Creates a new named transformation with the given name and transformation string
       client,
       args.transformation,
       args.create_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

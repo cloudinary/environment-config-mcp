@@ -33,7 +33,7 @@ export const tool$uploadPresetsUpdateUploadPreset: ToolDefinition<typeof args> =
         client,
         args.name,
         args.upload_preset_input,
-        { fetchOptions: { signal: ctx.signal } },
+        { fetchOptions: { signal: ctx.mcpReq.signal } },
       ).$inspect();
 
       if (!result.ok) {

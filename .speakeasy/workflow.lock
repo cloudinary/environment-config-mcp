@@ -1,4 +1,4 @@
-speakeasyVersion: 1.800.1
+speakeasyVersion: 1.803.1
 sources:
     CloudinaryEnvConfig-MCP-OAS:
         sourceNamespace: cloudinary-env-config-mcp-oas
