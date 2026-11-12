@@ -1,5 +1,6 @@
 # Cloudinary Environment Config MCP Server
 
+<!-- mcp-name: com.cloudinary/environment-config-mcp -->
 
 <!-- Start Summary [summary] -->
 ## Summary
