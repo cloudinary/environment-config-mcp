@@ -4,13 +4,32 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { EventType, EventType$zodSchema } from "./eventtype.js";
-import { UriType, UriType$zodSchema } from "./uritype.js";
+
+/**
+ * The delivery transport for the notification trigger.
+ */
+export const TriggerInfoUriType = {
+  Webhook: "webhook",
+  Flow: "flow",
+  Poll: "poll",
+} as const;
+/**
+ * The delivery transport for the notification trigger.
+ */
+export type TriggerInfoUriType = ClosedEnum<typeof TriggerInfoUriType>;
+
+export const TriggerInfoUriType$zodSchema = z.enum([
+  "webhook",
+  "flow",
+  "poll",
+]).describe("The delivery transport for the notification trigger.");
 
 export type TriggerInfo = {
   id?: string | undefined;
   product_environment_id?: string | undefined;
-  uri_type: UriType;
+  uri_type: TriggerInfoUriType;
   uri: string;
   event_type?: EventType | undefined;
   created_at?: string | undefined;
@@ -26,5 +45,5 @@ export const TriggerInfo$zodSchema: z.ZodType<TriggerInfo> = z.object({
   product_environment_id: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
   uri: z.string(),
-  uri_type: UriType$zodSchema,
+  uri_type: TriggerInfoUriType$zodSchema,
 });
