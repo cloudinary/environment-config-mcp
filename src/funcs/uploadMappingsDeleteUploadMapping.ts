@@ -7,9 +7,8 @@ import { CloudinaryEnvConfigCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   DeleteUploadMappingRequest,
   DeleteUploadMappingRequest$zodSchema,
@@ -95,9 +94,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/upload_mappings")(
+  const pathResult$ = encodePath(
+    "/v1_1/{cloud_name}/upload_mappings",
     pathParams$,
   );
+  if (!pathResult$.ok) {
+    return [pathResult$, { status: "invalid" }];
+  }
+  const path$ = pathResult$.value;
   const query$ = encodeFormQuery({
     "folder": payload$.folder,
   });

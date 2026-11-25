@@ -7,9 +7,8 @@ import { CloudinaryEnvConfigCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -106,9 +105,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/upload_presets")(
+  const pathResult$ = encodePath(
+    "/v1_1/{cloud_name}/upload_presets",
     pathParams$,
   );
+  if (!pathResult$.ok) {
+    return [pathResult$, { status: "invalid" }];
+  }
+  const path$ = pathResult$.value;
   const query$ = encodeFormQuery({
     "direction": payload$?.direction,
     "max_results": payload$?.max_results,
