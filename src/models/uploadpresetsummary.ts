@@ -5,11 +5,12 @@
 
 import * as z from "zod";
 
-export type Settings = string | boolean;
+export type Settings = string | boolean | Array<string>;
 
 export const Settings$zodSchema: z.ZodType<Settings> = z.union([
   z.string(),
   z.boolean(),
+  z.array(z.string()),
 ]);
 
 /**
@@ -18,7 +19,7 @@ export const Settings$zodSchema: z.ZodType<Settings> = z.union([
 export type UploadPresetSummary = {
   name: string;
   unsigned?: boolean | undefined;
-  settings?: { [k: string]: string | boolean } | undefined;
+  settings?: { [k: string]: string | boolean | Array<string> } | undefined;
   external_id: string;
 };
 
@@ -33,6 +34,7 @@ export const UploadPresetSummary$zodSchema: z.ZodType<UploadPresetSummary> = z
       z.union([
         z.string(),
         z.boolean(),
+        z.array(z.string()),
       ]),
     ).optional().describe(
       "Preset configuration settings. Most values are strings (e.g., tags are comma-separated, context is pipe-separated key=value pairs), but some boolean fields may be returned as native booleans.",
