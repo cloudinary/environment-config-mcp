@@ -61,15 +61,35 @@ jobs:
         with:
           node-version: 22
 
-      - name: Build
+      - name: Check for a version bump
+        id: version
         if: steps.pr.outputs.number != ''
+        env:
+          NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if [ -n "$(npm view "$name@$version" version 2>/dev/null)" ]; then
+            echo "$name@$version is already published, not a version PR."
+            echo "bump=false" >> "$GITHUB_OUTPUT"
+            gh pr view "$NUMBER" --repo "$REPO" --json body --jq .body > "$RUNNER_TEMP/body.md"
+            if grep -q "tools-changelog:start" "$RUNNER_TEMP/body.md"; then
+              node scripts/tools-changelog.mjs --strip < "$RUNNER_TEMP/body.md" > "$RUNNER_TEMP/stripped.md"
+              gh pr edit "$NUMBER" --repo "$REPO" --body-file "$RUNNER_TEMP/stripped.md"
+            fi
+          else
+            echo "bump=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        if: steps.version.outputs.bump == 'true'
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
           npm rebuild bun
           npm run build
 
       - name: Update pull request body
-        if: steps.pr.outputs.number != ''
+        if: steps.version.outputs.bump == 'true'
         env:
           NUMBER: ${{ steps.pr.outputs.number }}
         run: |

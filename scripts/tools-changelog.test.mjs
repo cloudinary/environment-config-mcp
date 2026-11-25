@@ -1,7 +1,7 @@
 // Unit tests for tools-changelog.mjs. Run with: node --test scripts/tools-changelog.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { diffTools, diffDeps, render, mergeBody, extractNotes, renderLinks, START, END } from "./tools-changelog.mjs";
+import { diffTools, diffDeps, render, mergeBody, extractNotes, stripNotes, renderLinks, START, END } from "./tools-changelog.mjs";
 
 const tool = (name, properties, required = [], description = `${name} tool\n\nMore detail.`) => ({
   name,
@@ -131,4 +131,10 @@ test("links to packages and the registry", () => {
     "### MCP Registry",
     "[com.cloudinary/example-mcp 0.7.0](https://registry.modelcontextprotocol.io/v0/servers/com.cloudinary%2Fexample-mcp/versions/0.7.0)",
   ].join("\n"));
+});
+
+test("strip removes the notes block", () => {
+  assert.equal(stripNotes(`Intro\n\n${START}\nnotes\n${END}\n\nTest plan`), "Intro\n\nTest plan");
+  assert.equal(stripNotes(`Intro\n\n${START}\nnotes\n${END}\n`), "Intro");
+  assert.equal(stripNotes("Intro"), "Intro");
 });

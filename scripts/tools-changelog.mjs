@@ -4,6 +4,7 @@
 // Usage: node scripts/tools-changelog.mjs [--prev <version>]
 //        node scripts/tools-changelog.mjs --merge <notes-file> < body   (prints body with the notes block replaced)
 //        node scripts/tools-changelog.mjs --extract < body             (prints only the notes block)
+//        node scripts/tools-changelog.mjs --strip < body               (prints body without the notes block)
 //        node scripts/tools-changelog.mjs --links                      (prints package and registry links)
 // Run from the repo root after `npm run build`.
 
@@ -207,6 +208,14 @@ export function mergeBody(body, notes) {
   return body.trim() ? `${body.trimEnd()}\n\n${notes}` : notes;
 }
 
+// Removes the notes block from a PR body.
+export function stripNotes(body) {
+  const start = body.indexOf(START);
+  const end = body.indexOf(END, start);
+  if (start < 0 || end < 0) return body;
+  return `${body.slice(0, start).trimEnd()}\n\n${body.slice(end + END.length).trimStart()}`.trim();
+}
+
 // Returns the notes block from a PR body without its markers, or an empty string.
 export function extractNotes(body) {
   const start = body.indexOf(START);
@@ -257,6 +266,10 @@ async function main() {
     const pkg = JSON.parse(readFileSync("package.json", "utf8"));
     const server = JSON.parse(readFileSync("server.json", "utf8"));
     process.stdout.write(renderLinks(pkg, server) + "\n");
+    return;
+  }
+  if (process.argv.includes("--strip")) {
+    process.stdout.write(stripNotes(readFileSync(0, "utf8")) + "\n");
     return;
   }
   if (process.argv.includes("--extract")) {
