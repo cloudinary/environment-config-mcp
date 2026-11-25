@@ -4,6 +4,7 @@
 // Usage: node scripts/tools-changelog.mjs [--prev <version>]
 //        node scripts/tools-changelog.mjs --merge <notes-file> < body   (prints body with the notes block replaced)
 //        node scripts/tools-changelog.mjs --extract < body             (prints only the notes block)
+//        node scripts/tools-changelog.mjs --links                      (prints package and registry links)
 // Run from the repo root after `npm run build`.
 
 import { spawn, execFileSync } from "node:child_process";
@@ -214,6 +215,23 @@ export function extractNotes(body) {
   return body.slice(start + START.length, end).trim();
 }
 
+// Renders links to the published packages and the MCP Registry entry.
+export function renderLinks(pkg, server) {
+  const version = pkg.version;
+  const lines = ["### Packages", `* npm: [${pkg.name}@${version}](https://www.npmjs.com/package/${pkg.name}/v/${version})`];
+  const oci = server.packages?.find((p) => p.registryType === "oci")?.identifier;
+  if (oci) {
+    const image = oci.replace(/^docker\.io\//, "").replace(/:[^/:]+$/, "");
+    lines.push(`* Docker Hub: [${image}:${version}](https://hub.docker.com/r/${image}/tags?name=${version})`);
+  }
+  lines.push(
+    "",
+    "### MCP Registry",
+    `[${server.name} ${server.version}](https://registry.modelcontextprotocol.io/v0/servers/${encodeURIComponent(server.name)}/versions/${server.version})`,
+  );
+  return lines.join("\n");
+}
+
 function docVersion(lockText) {
   return lockText?.match(/^\s*docVersion:\s*(\S+)/m)?.[1];
 }
@@ -233,6 +251,12 @@ async function main() {
   };
   if (process.argv.includes("--merge")) {
     process.stdout.write(mergeBody(readFileSync(0, "utf8"), readFileSync(flag("--merge"), "utf8").trim()) + "\n");
+    return;
+  }
+  if (process.argv.includes("--links")) {
+    const pkg = JSON.parse(readFileSync("package.json", "utf8"));
+    const server = JSON.parse(readFileSync("server.json", "utf8"));
+    process.stdout.write(renderLinks(pkg, server) + "\n");
     return;
   }
   if (process.argv.includes("--extract")) {

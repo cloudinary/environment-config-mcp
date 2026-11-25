@@ -100,16 +100,21 @@ jobs:
       - name: Update release notes
         run: |
           version=$(node -p "require('./package.json').version")
+          tag_sha=$(git ls-remote --tags origin "refs/tags/v$version" "refs/tags/v$version^{}" | sort -k2 | tail -1 | cut -f1)
+          if [ "$tag_sha" != "$SHA" ]; then
+            echo "Release v$version was not created from $SHA, skipping."
+            exit 0
+          fi
           number=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[0].number // empty')
-          if [ -z "$number" ]; then
-            echo "No pull request for $SHA, skipping."
-            exit 0
+          : > "$RUNNER_TEMP/body.md"
+          if [ -n "$number" ]; then
+            gh pr view "$number" --repo "$REPO" --json body --jq .body \
+              | node scripts/tools-changelog.mjs --extract > "$RUNNER_TEMP/notes.md"
+            if [ -n "$(tr -d '[:space:]' < "$RUNNER_TEMP/notes.md")" ]; then
+              cat "$RUNNER_TEMP/notes.md" >> "$RUNNER_TEMP/body.md"
+              echo >> "$RUNNER_TEMP/body.md"
+            fi
           fi
-          gh pr view "$number" --repo "$REPO" --json body --jq .body \
-            | node scripts/tools-changelog.mjs --extract > "$RUNNER_TEMP/notes.md"
-          if [ ! -s "$RUNNER_TEMP/notes.md" ] || [ "$(tr -d '[:space:]' < "$RUNNER_TEMP/notes.md")" = "" ]; then
-            echo "Pull request #$number has no release notes, skipping."
-            exit 0
-          fi
-          cat "$RUNNER_TEMP/notes.md"
-          gh release edit "v$version" --repo "$REPO" --notes-file "$RUNNER_TEMP/notes.md"
+          node scripts/tools-changelog.mjs --links >> "$RUNNER_TEMP/body.md"
+          cat "$RUNNER_TEMP/body.md"
+          gh release edit "v$version" --repo "$REPO" --notes-file "$RUNNER_TEMP/body.md"

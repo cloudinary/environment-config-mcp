@@ -1,7 +1,7 @@
 // Unit tests for tools-changelog.mjs. Run with: node --test scripts/tools-changelog.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { diffTools, diffDeps, render, mergeBody, extractNotes, START, END } from "./tools-changelog.mjs";
+import { diffTools, diffDeps, render, mergeBody, extractNotes, renderLinks, START, END } from "./tools-changelog.mjs";
 
 const tool = (name, properties, required = [], description = `${name} tool\n\nMore detail.`) => ({
   name,
@@ -109,4 +109,26 @@ test("extract returns the notes without markers", () => {
 test("nothing changed", () => {
   const notes = render({ version: "0.6.4", tools: diffTools(oldTools, oldTools), deps: [], schema: { old: "0.5.5", new: "0.5.5" } });
   assert.equal(notes, `${START}\n## What's new in 0.6.4\n\n* No changes to tools or dependencies.\n\n${END}`);
+});
+
+test("links to packages and the registry", () => {
+  const links = renderLinks(
+    { name: "@cloudinary/example-mcp", version: "0.7.0" },
+    {
+      name: "com.cloudinary/example-mcp",
+      version: "0.7.0",
+      packages: [
+        { registryType: "npm", identifier: "@cloudinary/example-mcp", version: "0.7.0" },
+        { registryType: "oci", identifier: "docker.io/cloudinary/example-mcp:0.7.0" },
+      ],
+    },
+  );
+  assert.equal(links, [
+    "### Packages",
+    "* npm: [@cloudinary/example-mcp@0.7.0](https://www.npmjs.com/package/@cloudinary/example-mcp/v/0.7.0)",
+    "* Docker Hub: [cloudinary/example-mcp:0.7.0](https://hub.docker.com/r/cloudinary/example-mcp/tags?name=0.7.0)",
+    "",
+    "### MCP Registry",
+    "[com.cloudinary/example-mcp 0.7.0](https://registry.modelcontextprotocol.io/v0/servers/com.cloudinary%2Fexample-mcp/versions/0.7.0)",
+  ].join("\n"));
 });
