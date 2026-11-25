@@ -4,14 +4,45 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { EventType, EventType$zodSchema } from "./eventtype.js";
 
-export type CreateTriggerRequest = { uri: string; event_type: EventType };
+/**
+ * The delivery transport for the notification trigger. Defaults to 'webhook'.
+ */
+export const CreateTriggerRequestUriType = {
+  Webhook: "webhook",
+  Flow: "flow",
+  Poll: "poll",
+} as const;
+/**
+ * The delivery transport for the notification trigger. Defaults to 'webhook'.
+ */
+export type CreateTriggerRequestUriType = ClosedEnum<
+  typeof CreateTriggerRequestUriType
+>;
+
+export const CreateTriggerRequestUriType$zodSchema = z.enum([
+  "webhook",
+  "flow",
+  "poll",
+]).describe(
+  "The delivery transport for the notification trigger. Defaults to 'webhook'.",
+);
+
+export type CreateTriggerRequest = {
+  uri: string;
+  uri_type?: CreateTriggerRequestUriType | undefined;
+  event_type: EventType;
+};
 
 export const CreateTriggerRequest$zodSchema: z.ZodType<CreateTriggerRequest> = z
   .object({
     event_type: EventType$zodSchema.describe("The type of notification event."),
     uri: z.string().describe(
-      "The URL that will receive the notification response.",
+      "The destination that will receive the notification response. An 'https://' URL for a webhook trigger, or a 'poll://<channel>' / 'poll://*' address for a poll trigger.",
+    ),
+    uri_type: CreateTriggerRequestUriType$zodSchema.optional().describe(
+      "The delivery transport for the notification trigger. Defaults to 'webhook'.",
     ),
   });
